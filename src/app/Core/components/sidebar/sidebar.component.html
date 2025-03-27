@@ -1,0 +1,47 @@
+<div class="sidebar">
+
+    <a mat-button routerLink="inicio" class="nav__link" routerLinkActive="active">
+        <mat-icon class="nav__icon">home</mat-icon>
+        <span class="nav__name">Inicio</span>
+    </a>
+
+    <div class="nav__link_collapse collapse">
+        <mat-icon class="nav__icon">edit</mat-icon>
+        <span class="nav__name">Modificar Páginas</span>
+
+        <mat-icon class="collapse__link">keyboard_arrow_down</mat-icon>
+
+        <ul class="collapse__menu">
+            <a routerLink="modificar-paginas/home" class="collapse__sublink nav__link" routerLinkActive="active"><span>•</span>Home</a>
+            <a routerLink="modificar-paginas/sobre-nosotros" class="collapse__sublink nav__link" routerLinkActive="active"><span>•</span>Sobre nosotros</a>
+            <a routerLink="modificar-paginas/facilidades" class="collapse__sublink nav__link" routerLinkActive="active"><span>•</span>Facilidades</a>
+            <a routerLink="modificar-paginas/como-llegar" class="collapse__sublink nav__link" routerLinkActive="active"><span>•</span>Como llegar</a>
+        </ul>
+    </div>
+
+    <a mat-button routerLink="listado-de-reservaciones" class="nav__link" routerLinkActive="active">
+        <mat-icon class="nav__icon">list</mat-icon>
+        <span class="nav__name">Listado de reservaciones</span>
+    </a>
+
+    <a mat-button routerLink="administrar-habitaciones" class="nav__link" routerLinkActive="active">
+        <mat-icon class="nav__icon">hotel</mat-icon>
+        <span class="nav__name">Administrar habitaciones</span>
+    </a>
+
+    <a mat-button routerLink="ver-estado-del-hotel-hoy" class="nav__link" routerLinkActive="active">
+        <mat-icon class="nav__icon">bar_chart</mat-icon>
+        <span class="nav__name">Ver estado del hotel hoy</span>
+    </a>
+
+    <a mat-button routerLink="consultar-disponibilidad-de-habitaciones" class="nav__link" routerLinkActive="active">
+        <mat-icon class="nav__icon">event_available</mat-icon>
+        <span class="nav__name">Disponibilidad de habitaciones</span>
+    </a>
+
+    <a mat-button routerLink="publicidad" class="nav__link" routerLinkActive="active">
+        <mat-icon class="nav__icon">campaign</mat-icon>
+        <span class="nav__name">Publicidad</span>
+    </a>
+
+</div>

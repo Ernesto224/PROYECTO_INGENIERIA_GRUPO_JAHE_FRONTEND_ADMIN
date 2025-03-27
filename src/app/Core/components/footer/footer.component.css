@@ -1,0 +1,70 @@
+
+.footer-principal{
+    margin-top: 50px;
+    padding:  0px 25px;
+    /* background-color: #04c3e3; */
+    /* background: linear-gradient(135deg,  #00c1e2,  #00ebf6); */
+    background: linear-gradient(135deg,  #04c3e3,  #04c3e3);
+
+
+    background-image: linear-gradient(to right bottom, #04e4fe, #02def9, #01d7f4, #01d1ef, #02cbea, #01c6e4, #01c0dd, #00bbd7, #00b5ce, #00b0c5, #01aabd, #04a4b4);
+
+     width: 100%;
+   
+   
+    color: white;
+
+   
+}
+
+
+.divisor-footer{
+    border: none;
+    height: 1px;
+    background: white;
+    margin: 20px 0;
+}
+
+
+.footer-principal-contacto{
+    display: flex;
+   
+    justify-content: space-between;
+}
+
+.footer-principal-contacto-logo{
+   
+}
+
+.footer-principal-contacto-logo img{
+    width: 115px;
+    filter: drop-shadow(0 0 5px white) drop-shadow(0 0 3px white);
+}
+
+
+.footer-principal-contacto-redes{
+    display: flex;
+    align-items: center;
+} 
+
+    .footer-principal-contacto-redes a{
+       text-decoration: none;
+       color: white;
+       margin: 10px;
+       font-size: 25px;
+    }
+
+.footer-principal-contacto-redes{
+ 
+}
+
+.footer-principal-derechos{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-principal-derechos a{
+    text-decoration: none;
+    color: white;
+}
