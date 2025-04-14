@@ -24,10 +24,18 @@
         <span class="nav__name">Listado de reservaciones</span>
     </a>
 
-    <a mat-button routerLink="administrar-habitaciones" class="nav__link" routerLinkActive="active">
+    <div class="nav__link_collapse collapse">
         <mat-icon class="nav__icon">hotel</mat-icon>
-        <span class="nav__name">Administrar habitaciones</span>
-    </a>
+        <span class="nav__name">Habitaciones</span>
+
+        <mat-icon class="collapse__link">keyboard_arrow_down</mat-icon>
+
+        <ul class="collapse__menu">
+            <a routerLink="habitaciones/administrar-habitacion" class="collapse__sublink nav__link" routerLinkActive="active"><span>•</span>Administrar habitaciones</a>
+            <a routerLink="habitaciones/modificar-tipo-habitacion" class="collapse__sublink nav__link" routerLinkActive="active"><span>•</span>Modificar tipo habitación</a>
+    
+        </ul>
+    </div>
 
     <a mat-button routerLink="ver-estado-del-hotel-hoy" class="nav__link" routerLinkActive="active">
         <mat-icon class="nav__icon">bar_chart</mat-icon>
