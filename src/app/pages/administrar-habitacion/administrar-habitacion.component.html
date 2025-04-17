@@ -4,6 +4,49 @@
 
     <div class="">
         <p>administrar-habitaciones works!</p>
+
+        <p>Usar tabla de angular del proyecto anterior de gestor</p>
+
+
+        <p>Modificar el footer, quitar ese color primordial</p>
+
+        <br><br><br>
+
+
+        <mat-form-field appearance="outline" class="w-full select-modificar-tipo-habitacion">
+            <mat-label>Seleccionar tipo de habitación</mat-label>
+            <mat-select (selectionChange)="onSelectTipoHabitacion($event.value)">
+              <mat-option *ngFor="let habitacion of listaTipoDeHabitaciones" [value]="habitacion.idTipoDeHabitacion">
+                {{ habitacion.idTipoDeHabitacion }} - {{ habitacion.nombre }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+       <div class="contanedor-tabla">
+            <table class="w-full table-auto">
+              <thead>
+                <tr>
+                  <th class="text-left py-2">Número de Habitación</th>
+                  <th class="text-left py-2">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let habitacion of listaHabitacionesFiltradas">
+                  <td class="py-2">{{ habitacion.numero }}</td>
+                  <td class="py-2">
+                    <mat-slide-toggle
+                      [(ngModel)]="estadoSwitch[habitacion.idHabitacion]"
+                      (change)="onToggleDisponibilidad(habitacion.idHabitacion, $event.checked)">
+                    </mat-slide-toggle>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+          
+
+
     </div>
     
    
