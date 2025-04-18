@@ -42,6 +42,7 @@ a{
   
   .nav__link:hover{
     background: linear-gradient(135deg, #00c1e2, #00eaf2, #00fafd);
+    background: linear-gradient(to right, #2c3e50, #2c3e50);
     color: white;
   }
   .nav__icon{
@@ -138,7 +139,7 @@ ul{
 
 /*Active links menu*/
 .active {
-    background: linear-gradient(135deg, #00c1e2, #00eaf2, #00fafd);
     background: linear-gradient(135deg, #00c1e2, #00ebf6);
+    background: linear-gradient(to right, #394e63, #34495e);
     color: white;
 }
