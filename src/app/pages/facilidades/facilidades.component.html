@@ -1,12 +1,63 @@
-
-
 <div class="pagina animacion">
 
-    <div class="">
-        <p>facilidades works!</p>
+    <h2 class="titulo-pagina mth">Modificar Tipo de Habitación</h2>
 
+    <div class="contenedor-modificar-tipo-habitacion">
+
+        <div class="subcontenedor-modificar-tipo-habitacion">
+
+            <mat-form-field appearance="outline" class="w-full select-modificar-tipo-habitacion">
+                <mat-label>Seleccionar tipo de habitación</mat-label>
+                <mat-select (selectionChange)="onSelectFacilidad($event.value)">
+                    <mat-option *ngFor="let facilidad of listaFacilidades"
+                        [value]="facilidad.idFacilidad">
+                        {{ facilidad.idFacilidad }} - {{ facilidad.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <form class="form-container-tipohabitacion" [formGroup]="form">
+
+                <mat-form-field appearance="outline" class="w-full descripcion-modificar-tipo-habitacion">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput formControlName="descripcion"></textarea>
+                </mat-form-field>
+
+                <div class="contenedor-imagen-habitacion">
+
+                    <h5>Imagen de la habitación</h5>
+
+                    <div class="subcontenedor-imagen-habitacion">
+
+                        <div *ngIf="imagenUrl" class="imagen-selecciona">
+                            <img [src]="imagenUrl" alt="Imagen seleccionada" style="max-width: 200px;" />
+                        </div>
+
+                        <mat-form-field appearance="outline" class="w-full input-imagen">
+                            <mat-label class="label-input-imagen">Cambiar imagen (opcional)</mat-label>
+                            <input matInput [value]="nombreArchivo || ''" disabled>
+                            <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
+                                <mat-icon>upload</mat-icon>
+                            </button>
+                        </mat-form-field>
+
+                        <input class="miter" type="file" id="imagen" #fileInput (change)="onFileSelected($event)"
+                            hidden />
+
+                    </div>
+
+                </div>
+
+                <div class="contenedor-botones-formulario">
+                    <button mat-flat-button class="actualizar-boton" type="button"
+                        (click)="actualizar()">Actualizar</button>
+                    <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">Cancelar</button>
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
-    
-   
+
 </div>
