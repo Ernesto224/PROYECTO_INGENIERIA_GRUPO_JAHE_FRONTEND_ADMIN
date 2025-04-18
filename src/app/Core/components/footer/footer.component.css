@@ -1,70 +1,187 @@
-
-.footer-principal{
-    margin-top: 50px;
-    padding:  0px 25px;
-    /* background-color: #04c3e3; */
-    /* background: linear-gradient(135deg,  #00c1e2,  #00ebf6); */
-    background: linear-gradient(135deg,  #04c3e3,  #04c3e3);
-
-
-    background-image: linear-gradient(to right bottom, #04e4fe, #02def9, #01d7f4, #01d1ef, #02cbea, #01c6e4, #01c0dd, #00bbd7, #00b5ce, #00b0c5, #01aabd, #04a4b4);
-
-     width: 100%;
-   
-   
-    color: white;
-
-   
-}
-
-
-.divisor-footer{
-    border: none;
-    height: 1px;
-    background: white;
-    margin: 20px 0;
-}
-
-
-.footer-principal-contacto{
+.footer {
+    margin-top: 75px;
+    background-color: #343a40;
+    background: linear-gradient(to right, #1a1c20, #2c3e50);
+    color: #fff;
+    padding: 40px 0 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .row {
     display: flex;
-   
-    justify-content: space-between;
-}
+    flex-wrap: wrap;
+    margin: 0 -15px;
+  }
+  
+  .footer-section {
+    padding: 0 15px;
+  }
 
-.footer-principal-contacto-logo{
-   
-}
-
-.footer-principal-contacto-logo img{
-    width: 115px;
-    filter: drop-shadow(0 0 5px white) drop-shadow(0 0 3px white);
-}
-
-
-.footer-principal-contacto-redes{
+  /*nuevo para redes*/
+  .especial-para-redes{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .footer-logo {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 800;
+  }
+  
+  .footer-about {
+    color: #adb5bd;
+    margin-bottom: 20px;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .social-icon {
     display: flex;
     align-items: center;
-} 
-
-    .footer-principal-contacto-redes a{
-       text-decoration: none;
-       color: white;
-       margin: 10px;
-       font-size: 25px;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .social-icon:hover {
+    background-color: #007bff;
+  }
+  
+  h5 {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  .footer-links {
+    list-style: none;
+  }
+  
+  .footer-links li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-links a:hover {
+    color: #fff;
+  }
+  
+  .footer-newsletter {
+    display: flex;
+    margin-top: 15px;
+  }
+  
+  .footer-newsletter input {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+  }
+  
+  .newsletter-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .newsletter-btn:hover {
+    background-color: #0069d9;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .footer-bottom-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+  }
+  
+  .footer-bottom-links li {
+    margin: 0 10px 10px;
+  }
+  
+  .footer-bottom-links a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-bottom-links a:hover {
+    color: #fff;
+  }
+  
+  .footer-bottom p {
+    color: #6c757d;
+    font-size: 14px;
+  }
+  
+  /* Responsive */
+  @media (min-width: 768px) {
+    .footer-section:nth-child(1),
+    .footer-section:nth-child(4) {
+      width: 33.333%;
+    }
+    
+    .footer-section:nth-child(2),
+    .footer-section:nth-child(3) {
+      width: 16.666%;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .footer-section:nth-child(1),
+    .footer-section:nth-child(4) {
+      width: 33.333%;
+    }
+    
+    .footer-section:nth-child(2),
+    .footer-section:nth-child(3) {
+      width: 16.666%;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .footer-section {
+      width: 100%;
     }
 
-.footer-principal-contacto-redes{
- 
-}
-
-.footer-principal-derechos{
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.footer-principal-derechos a{
-    text-decoration: none;
-    color: white;
 }
