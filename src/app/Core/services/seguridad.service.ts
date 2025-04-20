@@ -12,15 +12,10 @@ import { LoginResponse } from '../models/LogginResponseDTO';
 export class SeguridadService {
 
   private http = inject(HttpClient);
-  private router = inject(Router); 
+  private router = inject(Router);
   private login_url = "http://gestordocumental.somee.com/api/Autenticación/login";
 
-
   constructor() { }
-
-
-
-
 
   //borrar cunado este listo el del hotel y usar el de abajo
   public logginPrueba(correo: string, password: string) {
@@ -28,22 +23,20 @@ export class SeguridadService {
     localStorage.setItem('correo', correo);
   }
 
- 
-  
   public loggin(correo: string, password: string): Observable<any> {
     // Configurar los parámetros
     const params = new HttpParams().set('Correo', correo).set('Password', password);
-  
+
     // Realizar la solicitud POST y capturar la respuesta y errores
     return this.http.post<LoginResponse>(this.login_url, null, { params }).pipe(
       tap(response => {
         console.log('Respuesta de login:', response);
-  
+
         // Aquí puedes almacenar información en el localStorage
         sessionStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('correo', response.correo.toString());
-      
-        
+
+
 
       }),
       catchError(error => {
@@ -57,20 +50,12 @@ export class SeguridadService {
         return throwError(() => error);
       })
     );
-    
-
 
   }
 
-
-
-
-  
   isAuthenticated(): boolean {
     return sessionStorage.getItem('isAuthenticated') === 'true';// este atributo se borra automaticamente cuando el usuario sale de la pagina, asi que no tengo necesiadad de limpiarlo en el logout
   }
-
-
 
   logout(): void {
     localStorage.removeItem('correo');
@@ -79,10 +64,5 @@ export class SeguridadService {
 
     this.router.navigate(['login']);
   }
-
-
-
-
-
 
 }

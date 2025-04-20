@@ -1,13 +1,13 @@
 <div class="pagina animacion">
 
-    <h2 class="titulo-pagina mth">Modificar Tipo de Habitación</h2>
+    <h2 class="titulo-pagina mth">Modificar Facilidades</h2>
 
-    <div class="contenedor-modificar-tipo-habitacion">
+    <div class="contenedor-modificar-facilidades">
 
-        <div class="subcontenedor-modificar-tipo-habitacion">
+        <div class="subcontenedor-modificar-facilidades">
 
-            <mat-form-field appearance="outline" class="w-full select-modificar-tipo-habitacion">
-                <mat-label>Seleccionar tipo de habitación</mat-label>
+            <mat-form-field appearance="outline" class="w-full select-modificar-facilidades">
+                <mat-label>Seleccionar facilidad</mat-label>
                 <mat-select (selectionChange)="onSelectFacilidad($event.value)">
                     <mat-option *ngFor="let facilidad of listaFacilidades"
                         [value]="facilidad.idFacilidad">
@@ -16,21 +16,21 @@
                 </mat-select>
             </mat-form-field>
 
-            <form class="form-container-tipohabitacion" [formGroup]="form">
+            <form class="form-container-facilidad" [formGroup]="form">
 
-                <mat-form-field appearance="outline" class="w-full descripcion-modificar-tipo-habitacion">
+                <mat-form-field appearance="outline" class="w-full descripcion-modificar-facilidades">
                     <mat-label>Descripción</mat-label>
                     <textarea matInput formControlName="descripcion"></textarea>
                 </mat-form-field>
 
-                <div class="contenedor-imagen-habitacion">
+                <div class="contenedor-imagen-facilidad">
 
-                    <h5>Imagen de la habitación</h5>
+                    <h5>Imagen de la facilidad</h5>
 
-                    <div class="subcontenedor-imagen-habitacion">
+                    <div class="subcontenedor-imagen-facilidad">
 
                         <div *ngIf="imagenUrl" class="imagen-selecciona">
-                            <img [src]="imagenUrl" alt="Imagen seleccionada" style="max-width: 200px;" />
+                            <img [src]="imagenUrl" alt="Imagen seleccionada" style="max-width: 200px; object-fit: cover;" />
                         </div>
 
                         <mat-form-field appearance="outline" class="w-full input-imagen">

@@ -1,11 +1,91 @@
-
-
-
 <div class="pagina animacion">
 
-    <div class="">
-        <p>consultar-disponibilidad-habitaciones works!</p>
+    <h2 class="titulo-pagina mth">Consultar Disponibilidad de Habitaciones</h2>
+
+    <div class="contenedor-modificar-tipo-habitacion">
+
+        <div class="subcontenedor-modificar-tipo-habitacion">
+
+            <form class="form-container-tipohabitacion" [formGroup]="form">
+
+                <mat-form-field appearance="outline" class="w-full select-modificar-tipo-habitacion">
+                    <mat-label>Seleccionar tipo de habitación</mat-label>
+                    <mat-select formControlName="idTiposDeHabitacion" multiple>
+                        <mat-option *ngFor="let habitacion of listaTipoDeHabitaciones()"
+                            [value]="habitacion.idTipoDeHabitacion">
+                            {{ habitacion.idTipoDeHabitacion }} - {{ habitacion.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="contenedor-doble-formulario">
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Fecha Llegada</mat-label>
+                        <input matInput [matDatepicker]="pickerLlegada" [min]="hoy" formControlName="fechaLlegada">
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerLlegada">
+                            <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerLlegada></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Fecha Salida</mat-label>
+                        <input matInput [matDatepicker]="pickerSalida" [min]="hoy" formControlName="fechaSalida">
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerSalida">
+                            <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerSalida></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="contenedor-botones-formulario">
+                    <button mat-flat-button class="actualizar-boton" type="button"
+                        (click)="consultar()">Consultar</button>
+                </div>
+
+            </form>
+
+            <div class="contanedor-tabla">
+
+                <table mat-table [dataSource]="listaHabitacionesConsulta()" class="w-full">
+
+                    <!-- Número de Habitación -->
+                    <ng-container matColumnDef="numerohabitacion">
+                        <th mat-header-cell *matHeaderCellDef> Número de Habitación </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.numero }} </td>
+                    </ng-container>
+
+                    <!-- Tipo de Habitación -->
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell *matHeaderCellDef> Tipo de Habitación </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.tipoDeHabitacion.nombre }} </td>
+                    </ng-container>
+
+                    <!-- Monto Diario de Habitación -->
+                    <ng-container matColumnDef="tarifaDiaria">
+                        <th mat-header-cell *matHeaderCellDef> Costo Estadia </th>
+                        <td mat-cell *matCellDef="let element"> $ {{ element.tipoDeHabitacion.tarifaDiaria }} </td>
+                    </ng-container>
+
+                    <!-- Encabezados y filas -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+
+                <!-- Paginador -->
+                <mat-paginator [length]="totalRegistros || 0" [pageSize]="maximoPorPagina"
+                    [pageIndex]="paginaActual - 1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    (page)="onPageChange($event)" aria-label="Seleccionar página">
+                </mat-paginator>
+
+
+            </div>
+
+        </div>
+
     </div>
-    
-   
+
 </div>
