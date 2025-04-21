@@ -1,11 +1,16 @@
-
-
-
 <div class="pagina animacion">
-
-    <div class="">
-        <p>como-llegar works!</p>
+  <div class="container">
+    <div class="cambiar-informacion">
+      <h2 class="titulo-pagina">Cambiar texto Como llegar</h2>
+      @if(direccion()){
+        <textarea
+            [formControl]="descripcionControl"
+            class="descripcion-direccion"
+            id="direccion"
+        >
+        </textarea>
+        <button (click)="actualizarInformacion()">Actualizar</button>
+      }
     </div>
-    
-   
+  </div>
 </div>

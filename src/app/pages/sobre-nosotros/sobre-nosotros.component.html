@@ -1,10 +1,46 @@
-
-
-
 <div class="pagina animacion">
-
-    <div class="">
-        <p>sobre-nosotros works!</p>
+    <div class="container">
+      <h2 class="titulo-pagina">Actualizar Sobre Nosotros</h2>
+  
+      @if (sobreNosotros()) {
+        <div class="actualizar-informacion">
+          <h3 class="titulo-pagina">Actualizar Descripción</h3>
+  
+          <textarea
+            [formControl]="descripcionControl"
+            name="descripcion-sobreNosotros"
+            id="descripcion">
+          </textarea>
+  
+          <button (click)="actualizarDescripcion()">Actualizar Descripción</button>
+  
+          @if (sobreNosotros()) {
+            <div class="actualizar-galeria">
+              <h3 class="titulo-pagina">Seleccione la imagen que quiere actualizar</h3>
+  
+              @for (img of sobreNosotros().imagenes; track img.idImagen) {
+                <div class="imagen-actualizar">
+                  <img
+                    (click)="capturarImagenSeleccionada(img.idImagen)"
+                    [src]="img.url"
+                    alt="imagen-caracteristicas">
+                </div>
+              }
+  
+              @if (imagenSeleccionadaValida()) {
+                <h3 class="titulo-pagina">Imagen para actualizar</h3>
+                <div class="imagen-seleccionada">
+                  <img
+                    [src]="urlImagenActualizada()"
+                    alt="imagen seleccionada para que sea actualizada">
+                  <input type="file" (change)="onFileSelected($event)" class="buscar-imagen-nueva" />
+                </div>
+                <button (click)="actualizarUrlImagen()">Actualizar Imagen</button>
+              }
+            </div>
+          }
+        </div>
+      }
     </div>
-    
-</div>
+  </div>
+  
