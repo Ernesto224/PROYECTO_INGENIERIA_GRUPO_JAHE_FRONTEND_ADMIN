@@ -1,11 +1,58 @@
-
-
 <div class="pagina animacion">
-
-    <div class="">
-        <p>listado-reservaciones works!</p>
-
+  <section class="container-listado">
+    <h1 class="titulo-pagina">Listado de Reservaciones</h1>
+    <div class="tabla-reservaciones">
+      <table>
+        <thead class="encabezado">
+          <tr>
+            <th>Fecha</th>
+            <th>Id Reserva</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Tarjeta</th>
+            <th>Transacción</th>
+            <th>Fecha Llegada</th>
+            <th>Fecha Salida</th>
+            <th>Tipo</th>
+            <th>Ver</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody class="reservaciones">
+          @for (reservacion of reservaciones(); track reservacion.idReservacion)
+          {
+            <td>prueba</td>
+            <td>1</td>
+            <td>Prueba</td>
+            <td>prueba</td>
+            <td>prueba</td>
+            <td>prueba</td>
+            <td>prueba</td>
+            <td>prueba</td>
+            <td>prueba</td>
+            <td>prueba</td>
+            <td>
+                <button
+                aria-label="Ver"
+                (click)="verReservacionEspecifica(reservacion.idReservacion)"
+                >
+                Ver
+                </button>
+            </td>
+            <td>
+                <button
+                aria-label="Eliminar"
+                (click)="eliminarReservacion(reservacion.idReservacion)"
+                >
+                Eliminar
+                </button>
+            </td>
+        }
+        </tbody>
+      </table>
+      <button aria-label="Siguiente">Siguiente</button>
+      <button aria-label="Anterior">Anterior</button>
     </div>
-    
-   
+  </section>
 </div>
