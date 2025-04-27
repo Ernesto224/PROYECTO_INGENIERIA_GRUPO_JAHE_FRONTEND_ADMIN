@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { HabitacionConsultaDTO } from '../../Core/models/HabitacionConsultaDTO';
 import { TipoDeHabitacionDTO } from '../../Core/models/TipoDeHabitacionDTO';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,8 +15,8 @@ import { CustomMatPaginatorIntlComponent } from '../../Core/components/custom-ma
 import { HabitacionesService } from '../../Core/services/HabitacionesService/habitaciones.service';
 import { TipoHabitacionesService } from '../../Core/services/TipoHabitacionesService/tipo-habitaciones.service';
 import { PageEvent } from '@angular/material/paginator';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { signal } from '@angular/core';
 
 @Component({
@@ -46,13 +46,15 @@ export class ConsultarDisponibilidadHabitacionesComponent implements OnInit {
 
   public displayedColumns: string[] = ['numerohabitacion', 'tipo', 'tarifaDiaria'];
 
-  public hoy = new Date(); 
-  
+  public fechaActual = new Date();
+  public fechaSiguiente = new Date(this.fechaActual);
+
   constructor() {
+    this.fechaSiguiente.setDate(this.fechaActual.getDate() + 1)
     this.form = this.formBuilder.group({
       idTiposDeHabitacion: [[], Validators.required],
-      fechaLlegada: ['', Validators.required],
-      fechaSalida: ['', Validators.required]
+      fechaLlegada: [this.fechaActual, Validators.required],
+      fechaSalida: [this.fechaSiguiente, Validators.required]
     });
   }
 

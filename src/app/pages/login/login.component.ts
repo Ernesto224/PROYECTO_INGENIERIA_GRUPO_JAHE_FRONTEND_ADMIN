@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SeguridadService } from '../../Core/services/seguridad.service';
 import { AutenticacionService } from '../../Core/services/AutenticacionService/autenticacion.service';
 import { AdministradorLoginDTO } from '../../Core/models/AdministradorLoginDTO';
 import { ExpresionesRegulares } from '../../Core/validators/regex.validators';
@@ -16,7 +15,6 @@ import { ExpresionesRegulares } from '../../Core/validators/regex.validators';
 export class LoginComponent {
 
   router = inject(Router);
-  seguridadService = inject(SeguridadService);
   private autenticacionService = inject(AutenticacionService);
 
   private formbuilder = inject(FormBuilder);
@@ -39,51 +37,19 @@ export class LoginComponent {
 
     this.autenticacionService.Login(login).subscribe({
       next: (respuesta: any) => {
+        console.log(respuesta);
         this.inicioSesionCorrecto();
       },
       error: (error: any) => {
-        console.error(error);
+        if (error.status === 404) {
+          console.log("error");
+          this.errorLoggin();
+        } else {
+          alert('Ocurrió un error inesperado en el inicio de sesión.');
+        }
       }
     });
     
-  }
-
-  //borrar cunado este listo el del hotel y usar el de abajo
-  logginPrueba(): void {
-
-    if (this.formulario.invalid) {
-      this.mostrarErrores();
-      return;
-    }
-    this.seguridadService.logginPrueba(this.formulario.value.user!, this.formulario.value.password!);
-    this.inicioSesionCorrecto();
-  }
-
-  loggin(): void {
-
-    if (this.formulario.invalid) {
-      this.mostrarErrores();
-      return;
-    }
-
-    this.seguridadService.loggin(this.formulario.value.user!, this.formulario.value.password!)
-      .subscribe(
-        response => {
-
-          console.log(response);
-          this.inicioSesionCorrecto();
-
-        },
-        error => {
-          if (error.status === 404) {
-            console.log("error");
-            this.errorLoggin();
-          } else {
-            alert('Ocurrió un error inesperado en el inicio de sesión.');
-          }
-        }
-      );
-
   }
 
   inicioSesionCorrecto(): void {

@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { SeguridadService } from '../../services/seguridad.service';
-import { AutenticacionService } from '../../services/AutenticacionService/autenticacion.service';
+import { SeguridadService } from '../../services/SeguridadService/seguridad.service';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -12,13 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HeaderComponent {
 
-  autenticacionService = inject(AutenticacionService);
-  seguridadService = inject(SeguridadService);
-
+  private seguridadService = inject(SeguridadService);
 
   logout(): void {
-    /*this.seguridadService.logout();*/
-    this.autenticacionService.logout();
+    this.seguridadService.logout();
   }
 
 }

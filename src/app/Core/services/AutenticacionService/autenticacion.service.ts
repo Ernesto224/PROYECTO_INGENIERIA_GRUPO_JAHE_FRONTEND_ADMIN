@@ -2,22 +2,18 @@ import { inject, Injectable } from '@angular/core';
 import { TokenDeRespuestaDTO } from '../../models/TokenDeRespuestaDTO';
 import { RespuestaAutenticacionDTO } from '../../models/RespuestaAutenticacionDTO';
 import { AdministradorLoginDTO } from '../../models/AdministradorLoginDTO';
-import { LocalStorageService } from '../LocalStorageService/local-storage.service';
-import { Observable, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, tap, catchError, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { SeguridadService } from '../SeguridadService/seguridad.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacionService {
 
-  private localStorage = inject(LocalStorageService);
+  private seguridad = inject(SeguridadService);
   private http = inject(HttpClient);
-  private router = inject(Router);
   private urlBase = "https://localhost:7169/api/Autenticacion";
-  private keyIsAuth = "isAuthenticated";
-  public keyStorage = "tokens";
 
   constructor() { }
 
@@ -27,26 +23,27 @@ export class AutenticacionService {
         //antes de restornar la respuesta verifica que sea valida y guarda los token en el storage
         if (respuesta.tokenDeRespuesta) {
           console.log('Respuesta de login:', respuesta);
-          this.localStorage.setItem(this.keyStorage, respuesta.tokenDeRespuesta);
-          this.localStorage.setItem(this.keyIsAuth, 'true');
+          this.seguridad.setToken(respuesta.tokenDeRespuesta);
+          this.seguridad.autenticar();
         }
+      }),
+      catchError(error => {
+        // Captura el error aquí, por ejemplo, un error 404
+        if (error.status === 404) {
+          console.error('Error 404: Recurso no encontrado');
+        } else {
+          console.error('Error en la solicitud:', error);
+        }
+        // Re-lanza el error para que sea capturado en el componente
+        return throwError(() => error);
       })
     );
   }
 
   public RefreshToken = (): Observable<TokenDeRespuestaDTO> => {
-    const tokens = this.localStorage.getItem<TokenDeRespuestaDTO>(this.keyStorage);
+    const tokens = this.seguridad.getToken();
     const refreshToken = tokens?.tokenDeRefresco;
-    return this.http.post<TokenDeRespuestaDTO>(`${this.urlBase}/RefreshToken`, {},{ headers: { Authorization: `Bearer ${refreshToken}` } });
-  }
-
-  public isAuthenticated = (): boolean => {
-    return this.localStorage.getItem(this.keyIsAuth) === 'true';
-  }
-
-  public logout = (): void => {
-    this.localStorage.clear();
-    this.router.navigate(['login']);
+    return this.http.post<TokenDeRespuestaDTO>(`${this.urlBase}/RefreshToken`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
   }
 
 }

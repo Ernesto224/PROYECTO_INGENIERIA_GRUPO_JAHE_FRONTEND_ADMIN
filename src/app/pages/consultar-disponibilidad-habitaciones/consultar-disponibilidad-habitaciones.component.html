@@ -22,7 +22,7 @@
 
                     <mat-form-field appearance="outline" class="w-full">
                         <mat-label>Fecha Llegada</mat-label>
-                        <input matInput [matDatepicker]="pickerLlegada" [min]="hoy" formControlName="fechaLlegada">
+                        <input matInput [matDatepicker]="pickerLlegada" [min]="fechaActual" formControlName="fechaLlegada">
                         <mat-datepicker-toggle matIconSuffix [for]="pickerLlegada">
                             <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
                         </mat-datepicker-toggle>
@@ -31,7 +31,7 @@
 
                     <mat-form-field appearance="outline" class="w-full">
                         <mat-label>Fecha Salida</mat-label>
-                        <input matInput [matDatepicker]="pickerSalida" [min]="hoy" formControlName="fechaSalida">
+                        <input matInput [matDatepicker]="pickerSalida" [min]="fechaSiguiente" formControlName="fechaSalida">
                         <mat-datepicker-toggle matIconSuffix [for]="pickerSalida">
                             <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
                         </mat-datepicker-toggle>
