@@ -1,17 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
 
-*{
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
 }
 
-:root{
-  --nav-width: 92px;/**/
-  
+:root {
+  --nav-width: 92px;
+  /**/
+
   /*===== Colores =====*/
   --first-color: #0C5DF4;
   --bg-color: #12192C;
@@ -20,7 +28,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --sub-color: #B6CEFC;
   --white-color: #FFF;
   --text-color: rgb(139, 139, 139);
-    
+
   /*===== Fuente y tipografia =====*/
   --body-font: 'Poppins', sans-serif;
   --normal-font-size: 1rem;
@@ -31,7 +39,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .pagina {
   padding: 20px;
   overflow-y: auto;
-  max-height: 100%; /* Esto asegura que el contenedor tenga un límite de altura para que se active el scroll cuando sea necesario */
+  max-height: 100%;
+  /* Esto asegura que el contenedor tenga un límite de altura para que se active el scroll cuando sea necesario */
 
   color: rgb(139, 139, 139);
   font-family: var(--body-font);
@@ -40,21 +49,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /*Animacion*/
 .animacion {
-    position: relative; 
-    animation: slideInLeft 1s ease forwards;
+  position: relative;
+  animation: slideInLeft 1s ease forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-5%);
+    opacity: 0;
   }
-  @keyframes slideInLeft {
-    from {
-      transform: translateX(-5%);
-      opacity: 0; 
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  
+}
+
+
 
 .titulo-pagina {
   font-family: "Caveat", cursive;
@@ -68,7 +79,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
-.contenedor-botones-formulario{
+.contenedor-botones-formulario {
   width: 100%;
   max-width: 230px;
   display: flex;
@@ -76,11 +87,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-top: 30px;
 }
 
-.actualizar-boton{
+.actualizar-boton {
   background-color: rgb(0, 135, 212) !important;
 }
 
-.cancelar-boton{
+.cancelar-boton {
   background-color: rgb(130, 157, 173) !important;
 }
 
@@ -88,31 +99,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
-  
+
 /*****  trucate table cells *****************************/
 .mat-mdc-table {
   width: 100%;
   table-layout: fixed;
 }
-  
-  .truncate-cell {
-    max-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  /* Ajusta el ancho de las columnas según necesites */
-  .mat-column-acciones {
-    width: 100px;
-  }
-  
-  .mat-column-nombre {
-    width: 30%;
-  }
-  
-  .mat-column-descripcion {
-    width: calc(70% - 100px);
-  }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.truncate-cell {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Ajusta el ancho de las columnas según necesites */
+.mat-column-acciones {
+  width: 100px;
+}
+
+.mat-column-nombre {
+  width: 30%;
+}
+
+.mat-column-descripcion {
+  width: calc(70% - 100px);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

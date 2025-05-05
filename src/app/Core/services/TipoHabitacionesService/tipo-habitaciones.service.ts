@@ -17,10 +17,8 @@ export class TipoHabitacionesService {
     return this.http.get<TipoDeHabitacionDTO[]>(this.urlBase);
   }
 
-
   public actualizarTipoHabitacion(tipoHabitacion: any) {
-    return this.http.put('https://localhost:7169/api/Tarifas', tipoHabitacion);
+    return this.http.put('https://localhost:7169/api/Tarifas', tipoHabitacion, {headers: { auth: 'true' }});
   }
 
-  
 }
