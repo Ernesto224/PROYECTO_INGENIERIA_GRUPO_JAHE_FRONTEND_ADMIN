@@ -19,7 +19,7 @@ export class LoginComponent {
 
   private formbuilder = inject(FormBuilder);
   formulario = this.formbuilder.group({
-    user: ['', [Validators.required, Validators.pattern(ExpresionesRegulares.email)]],
+    user: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.pattern(ExpresionesRegulares.passwordSegura)]]
   });
 

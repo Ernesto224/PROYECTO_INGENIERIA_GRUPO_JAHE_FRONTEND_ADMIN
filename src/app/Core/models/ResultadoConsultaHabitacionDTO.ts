@@ -1,7 +1,7 @@
 import { HabitacionConsultaDTO } from "./HabitacionConsultaDTO";
 
 export interface ResultadoConsultaHabitacionDTO {
-    habitaciones: HabitacionConsultaDTO[];
+    lista: HabitacionConsultaDTO[];
     totalRegistros: number;
     paginaActual: number;
     totalPaginas: number;

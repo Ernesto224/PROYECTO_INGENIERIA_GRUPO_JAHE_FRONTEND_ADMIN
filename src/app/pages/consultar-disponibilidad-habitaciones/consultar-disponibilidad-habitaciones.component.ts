@@ -90,7 +90,7 @@ export class ConsultarDisponibilidadHabitacionesComponent implements OnInit {
 
     this.habitacionesService.consultaHabitacionesDisponibles(parametrosConsulta).subscribe({
       next: (respuesta: any) => {
-        this.listaHabitacionesConsulta.set(respuesta.habitaciones);
+        this.listaHabitacionesConsulta.set(respuesta.lista);
         this.totalRegistros = respuesta.totalRegistros;
         this.totalPaginas = respuesta.totalPaginas;
         this.paginaActual = respuesta.paginaActual;
