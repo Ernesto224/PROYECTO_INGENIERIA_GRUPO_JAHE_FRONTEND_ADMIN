@@ -1,46 +1,42 @@
 <div class="pagina animacion">
-    <div class="container">
-      <h2 class="titulo-pagina">Actualizar Sobre Nosotros</h2>
-  
-      @if (sobreNosotros()) {
-        <div class="actualizar-informacion">
-          <h3 class="titulo-pagina">Actualizar Descripción</h3>
-  
-          <textarea
-            [formControl]="descripcionControl"
-            name="descripcion-sobreNosotros"
-            id="descripcion">
-          </textarea>
-  
-          <button (click)="actualizarDescripcion()">Actualizar Descripción</button>
-  
-          @if (sobreNosotros()) {
-            <div class="actualizar-galeria">
-              <h3 class="titulo-pagina">Seleccione la imagen que quiere actualizar</h3>
-  
-              @for (img of sobreNosotros().imagenes; track img.idImagen) {
-                <div class="imagen-actualizar">
-                  <img
-                    (click)="capturarImagenSeleccionada(img.idImagen)"
-                    [src]="img.url"
-                    alt="imagen-caracteristicas">
-                </div>
-              }
-  
-              @if (imagenSeleccionadaValida()) {
-                <h3 class="titulo-pagina">Imagen para actualizar</h3>
-                <div class="imagen-seleccionada">
-                  <img
-                    [src]="urlImagenActualizada()"
-                    alt="imagen seleccionada para que sea actualizada">
-                  <input type="file" (change)="onFileSelected($event)" class="buscar-imagen-nueva" />
-                </div>
-                <button (click)="actualizarUrlImagen()">Actualizar Imagen</button>
-              }
-            </div>
-          }
-        </div>
-      }
+  <h2 class="titulo-pagina">Actualizar Sobre Nosotros</h2>
+
+  <form [formGroup]="form" class="formulario-sobre-nosotros">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" rows="5"></textarea>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" (click)="actualizarDescripcion()">Actualizar Descripción</button>
+  </form>
+
+  <div *ngIf="sobreNosotros?.imagenes?.length" class="galeria-imagenes">
+    <h3>Seleccione una imagen para actualizar</h3>
+
+    <mat-grid-list cols="3" rowHeight="150px" gutterSize="10px">
+      <mat-grid-tile *ngFor="let img of sobreNosotros.imagenes">
+        <img
+          [src]="img.url"
+          (click)="seleccionarImagen(img.idImagen)"
+          style="cursor: pointer; width: 100%; height: 100%; object-fit: cover;">
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <div *ngIf="imagenSeleccionadaId" class="imagen-actualizacion">
+      <h4>Imagen seleccionada</h4>
+      <img [src]="imagenUrl" style="width: 100%; max-height: 300px; object-fit: contain; margin-bottom: 10px;">
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Seleccionar nueva imagen</mat-label>
+        <input matInput [value]="nombreArchivo || ''" disabled>
+        <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
+          <mat-icon>upload</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
+
+      <button mat-flat-button color="accent" (click)="actualizarImagen()">Actualizar Imagen</button>
     </div>
   </div>
-  
+</div>
