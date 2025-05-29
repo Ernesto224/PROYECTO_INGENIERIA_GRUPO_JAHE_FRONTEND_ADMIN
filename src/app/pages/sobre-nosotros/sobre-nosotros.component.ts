@@ -49,11 +49,14 @@ export class SobreNosotrosComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerInformacion();
   }
-
+  cancelar(){
+    
+  }
   obtenerInformacion() {
     this.sobreNosotrosService.obtenerDatosSobreNosotros().subscribe({
       next: (data) => {
         this.sobreNosotros = data;
+        console.log(this.sobreNosotros);
         this.form.patchValue({ descripcion: data.descripcion });
       },
       error: (err) => {
