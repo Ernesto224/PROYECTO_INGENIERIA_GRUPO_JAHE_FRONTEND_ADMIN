@@ -18,6 +18,7 @@ import { OfertaDTO } from '../../Core/models/OfertaDTO';
 import { OfertaServiceService } from '../../Core/services/OfertaService/oferta-service.service';
 import { signal } from '@angular/core';
 import { ModalModificarOfertaComponent } from '../../Core/custom/modal-modificar-oferta/modal-modificar-oferta.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -43,6 +44,8 @@ export class OfertaComponent {
   public ofertasPaginadas = signal<OfertaDTO[]>([]);
 
   public modalModificarOferta: boolean = false;
+
+  isLoading = true;
 
   public ofertaSeleccionada: OfertaDTO = {
     idOferta: 0,
@@ -78,6 +81,9 @@ export class OfertaComponent {
   }
 
   private obtenerDatosOfertas() {
+
+    this.isLoading = true;
+    
     const parametrosConsulta = {
       numeroDePagina: this.paginaActual,
       maximoDeDatos: this.maximoPorPagina,
@@ -90,6 +96,7 @@ export class OfertaComponent {
         this.totalRegistros = respuesta.totalRegistros;
         this.totalPaginas = respuesta.totalPaginas;
         this.paginaActual = respuesta.paginaActual;
+        this.isLoading = false;
       },
       error: (error: any) => {
         console.error(error);
@@ -97,18 +104,23 @@ export class OfertaComponent {
     });
   }
 
-
   onToggleActivo(idOferta: number) {
 
     const oferta = this.ofertasPaginadas().find(o => o.idOferta === idOferta);
     if (oferta) {
       oferta.activo = !oferta.activo;
       this.ofertaService.desactivarOferta(idOferta).subscribe({
-        next: () => {
-          console.log('Estado actualizado correctamente');
+        next: (respuesta: any) => {
+          if (respuesta.esCorrecto == true) {
+            Swal.fire({ icon: "success", text: respuesta.texto, showConfirmButton: false, timer: 1500 });
+
+          }
+          else {
+            Swal.fire({ icon: "error", text: respuesta.texto, showConfirmButton: false, timer: 4000 });
+          }
         },
         error: (error) => {
-          console.error('Error al actualizar el estado:', error);
+            
         }
       });
     }
