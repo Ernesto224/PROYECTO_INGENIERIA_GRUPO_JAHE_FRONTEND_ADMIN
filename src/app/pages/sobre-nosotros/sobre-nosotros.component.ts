@@ -55,7 +55,6 @@ export class SobreNosotrosComponent implements OnInit {
     this.sobreNosotrosServicio.obtenerDatosSobreNosotros().subscribe({
       next: (respuesta) => {
         this.datosSobreNosotros = respuesta;
-        console.log(respuesta);
         this.formularioSobreNosotros.patchValue({ descripcion: respuesta.descripcion });
       },
       error: (error) => {
@@ -86,7 +85,6 @@ export class SobreNosotrosComponent implements OnInit {
         this.sobreNosotrosServicio.enviarNuevaDescripcionSobreNosotros(datosActualizados).subscribe({
           next: (respuesta) => {
             this.datosSobreNosotros = respuesta;
-            console.log(this.datosSobreNosotros.idSobreNosotros);
             Swal.fire({ icon: 'success', text: 'Descripción actualizada.', timer: 1500, showConfirmButton: false });
           },
           error: (error) => {
@@ -150,7 +148,6 @@ export class SobreNosotrosComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then(resultado => {
       if (resultado.isConfirmed) {
-        console.log("VALOR DEL ID: "+this.datosSobreNosotros.idSobreNosotros);
         const datosImagenActualizada: GaleriaModificarDTO = {
           idSobreNosotros: this.datosSobreNosotros.idSobreNosotros,
           idImagen: this.idImagenSeleccionada,
@@ -161,7 +158,6 @@ export class SobreNosotrosComponent implements OnInit {
         this.sobreNosotrosServicio.actualizarImagenGaleria(datosImagenActualizada).subscribe({
           next: (respuesta) => {
             this.datosSobreNosotros = respuesta;
-            console.log("CAMBIAR IMAGEN: "+this.datosSobreNosotros);
             Swal.fire({ icon: 'success', text: 'Imagen actualizada.', timer: 1500, showConfirmButton: false });
           },
           error: (error) => {
