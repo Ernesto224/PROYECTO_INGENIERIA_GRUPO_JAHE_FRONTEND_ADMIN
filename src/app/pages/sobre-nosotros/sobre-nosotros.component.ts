@@ -1,113 +1,171 @@
-import { Component, effect, inject, signal, computed } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import Swal from 'sweetalert2';
+
 import { SobreNosotrosService } from '../../Core/services/SobreNosotrosService/sobre-nosotros.service';
 import { SobreNosotrosDTO } from '../../Core/models/SobreNosotrosDTO';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { GaleriaModificarDTO } from '../../Core/models/GaleriaModificarDTO';
 
 @Component({
   selector: 'app-sobre-nosotros',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatIconModule
+  ],
   templateUrl: './sobre-nosotros.component.html',
-  styleUrl: './sobre-nosotros.component.css',
+  styleUrls: ['./sobre-nosotros.component.css']
 })
-export class SobreNosotrosComponent {
-  private serviceSobreNosotros = inject(SobreNosotrosService);
+export class SobreNosotrosComponent implements OnInit {
+  private formularioBuilder = inject(FormBuilder);
+  private sobreNosotrosServicio = inject(SobreNosotrosService);
 
-  readonly sobreNosotros = signal<SobreNosotrosDTO>({
-    idSobreNosotros: -1,
-    descripcion: '',
-    imagenes: [],
-  });
-  readonly sobreNosotrosActualizado = signal<SobreNosotrosDTO>({
-    idSobreNosotros: -1,
-    descripcion: '',
-    imagenes: [],
-  });
+  formularioSobreNosotros: FormGroup;
+  datosSobreNosotros!: SobreNosotrosDTO;
+  idImagenSeleccionada: number | null = null;
+  urlImagenSeleccionada: string = '';
+  imagenSeleccionadaEnBase64: string | null = null;
+  nombreArchivoImagenSeleccionada: string = '';
 
-  readonly idImagenSeleccionada = signal<number>(-1);
-  readonly urlImagenActualizada = signal<string>('');
-  readonly descripcionControl = new FormControl('');
-
-  readonly imagenSeleccionadaValida = computed(
-    () => this.idImagenSeleccionada() !== -1 && this.urlImagenActualizada() !== ''
-  );
-
-  ngOnInit() {
-    this.obtenerInformacion();
+  constructor() {
+    this.formularioSobreNosotros = this.formularioBuilder.group({
+      descripcion: ['', Validators.required],
+      imagen: [null]
+    });
   }
 
-  obtenerInformacion() {
-    this.serviceSobreNosotros.obtenerDatosSobreNosotros().subscribe({
-      next: (data) => {
-        this.sobreNosotros.set(data);
-        this.sobreNosotrosActualizado.set(data);
-        this.descripcionControl.setValue(data.descripcion);
+  ngOnInit(): void {
+    this.obtenerDatosSobreNosotros();
+  }
+
+  obtenerDatosSobreNosotros() {
+    this.sobreNosotrosServicio.obtenerDatosSobreNosotros().subscribe({
+      next: (respuesta) => {
+        this.datosSobreNosotros = respuesta;
+        this.formularioSobreNosotros.patchValue({ descripcion: respuesta.descripcion });
       },
       error: (error) => {
-        console.error('Hubo un error al obtener la información', error);
-      },
-      complete: () => {
-        console.log('Información obtenida con éxito.');
-      },
+        console.error('Error al obtener información:', error);
+      }
     });
   }
 
   actualizarDescripcion() {
-    const descripcionActualizada = this.descripcionControl.value ?? '';
-    const sobreNosotrosActual = { ...this.sobreNosotros(), descripcion: descripcionActualizada };
-
-    this.serviceSobreNosotros.enviarNuevaDescripcionSobreNosotros(sobreNosotrosActual).subscribe({
-      next: (data) => {
-        this.sobreNosotros.set(data);
-      },
-      error: (error) => {
-        console.error('Error al actualizar la descripción', error);
-      },
-      complete: () => {
-        console.log('Descripción actualizada correctamente.');
-      },
-    });
-  }
-
-  capturarImagenSeleccionada(idImagen: number) {
-    const imagen = this.sobreNosotros().imagenes?.find((img) => img.idImagen === idImagen);
-    if (imagen) {
-      this.idImagenSeleccionada.set(idImagen);
-      this.urlImagenActualizada.set(imagen.url);
-      console.log('Imagen seleccionada:', idImagen);
+    if (this.formularioSobreNosotros.invalid) {
+      Swal.fire({ icon: 'error', text: 'La descripción es requerida.', timer: 1500, showConfirmButton: false });
+      return;
     }
-  }
 
-  actualizarUrlImagen() {
-    const imagenesActualizadas = this.sobreNosotrosActualizado().imagenes.map(img => {
-      if (img.idImagen === this.idImagenSeleccionada()) {
-        return { ...img, url: this.urlImagenActualizada() };
-      }
-      return img;
-    });
-    this.sobreNosotrosActualizado.set({ ...this.sobreNosotrosActualizado(), imagenes: imagenesActualizadas });
-  }
+    Swal.fire({
+      text: '¿Deseas actualizar la descripción?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+    }).then(resultado => {
+      if (resultado.isConfirmed) {
+        const datosActualizados: SobreNosotrosDTO = {
+          ...this.datosSobreNosotros,
+          descripcion: this.formularioSobreNosotros.value.descripcion
+        };
 
-  actualizarImagenGaleria() {
-    const sobreNosotrosActualizado = { ...this.sobreNosotros() };
-    this.serviceSobreNosotros.enviarNuevasImagenesGaleria(sobreNosotrosActualizado).subscribe({
-      next: (data) => {
-        this.sobreNosotros.set(data);
-      },
-      error: (error) => {
-        console.error("Error al actualizar galeria", error);
+        this.sobreNosotrosServicio.enviarNuevaDescripcionSobreNosotros(datosActualizados).subscribe({
+          next: (respuesta) => {
+            this.datosSobreNosotros = respuesta;
+            Swal.fire({ icon: 'success', text: 'Descripción actualizada.', timer: 1500, showConfirmButton: false });
+          },
+          error: (error) => {
+            console.error(error);
+            Swal.fire({ icon: 'error', text: 'Error al actualizar.', timer: 1500, showConfirmButton: false });
+          }
+        });
       }
     });
   }
 
-  onFileSelected(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput?.files?.[0]) {
-      const file = fileInput.files[0];
-      const url = URL.createObjectURL(file);
-      this.urlImagenActualizada.set(url);
-      console.log('Imagen nueva seleccionada:', file.name);
+  seleccionarImagen(idImagen: number) {
+    const imagenSeleccionada = this.datosSobreNosotros.imagenes.find(imagen => imagen.idImagen === idImagen);
+    if (imagenSeleccionada) {
+      this.idImagenSeleccionada = idImagen;
+      this.urlImagenSeleccionada = imagenSeleccionada.url;
     }
+  }
+
+  alSeleccionarArchivo(evento: Event) {
+    const archivo = (evento.target as HTMLInputElement)?.files?.[0];
+    if (archivo) {
+      if (!archivo.type.startsWith('image/')) {
+        Swal.fire({ icon: 'error', text: 'Solo se permiten imágenes.', timer: 1500, showConfirmButton: false });
+        return;
+      }
+
+      const lector = new FileReader();
+      lector.readAsDataURL(archivo);
+      lector.onload = () => {
+        this.imagenSeleccionadaEnBase64 = lector.result!.toString().split(',')[1];
+        this.nombreArchivoImagenSeleccionada = archivo.name;
+        this.urlImagenSeleccionada = lector.result as string;
+      };
+    }
+  }
+
+  cancelar() {
+    this.formularioSobreNosotros.reset({
+      descripcion: '',
+      imagen: null
+    });
+  }
+  cancelarActualizarImagen() {
+    this.imagenSeleccionadaEnBase64 = null;
+    this.nombreArchivoImagenSeleccionada = '';
+    this.urlImagenSeleccionada = '';
+  }
+
+  actualizarImagen() {
+    if (this.idImagenSeleccionada === null || !this.imagenSeleccionadaEnBase64) {
+      Swal.fire({ icon: 'error', text: 'Selecciona una imagen válida.', timer: 1500, showConfirmButton: false });
+      return;
+    }
+
+    Swal.fire({
+      text: '¿Deseas actualizar la imagen seleccionada?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+    }).then(resultado => {
+      if (resultado.isConfirmed) {
+        const datosImagenActualizada: GaleriaModificarDTO = {
+          idSobreNosotros: this.datosSobreNosotros.idSobreNosotros,
+          idImagen: this.idImagenSeleccionada,
+          imagen: this.imagenSeleccionadaEnBase64,
+          nombreArchivo: this.nombreArchivoImagenSeleccionada
+        };
+
+        this.sobreNosotrosServicio.actualizarImagenGaleria(datosImagenActualizada).subscribe({
+          next: (respuesta) => {
+            this.datosSobreNosotros = respuesta;
+            Swal.fire({ icon: 'success', text: 'Imagen actualizada.', timer: 1500, showConfirmButton: false });
+          },
+          error: (error) => {
+            console.error(error);
+            Swal.fire({ icon: 'error', text: 'Error al actualizar imagen.', timer: 1500, showConfirmButton: false });
+          }
+        });
+      }
+    });
   }
 }
