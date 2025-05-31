@@ -125,7 +125,15 @@ export class SobreNosotrosComponent implements OnInit {
   }
 
   cancelar() {
-    // Lógica pendiente a implementar
+    this.formularioSobreNosotros.reset({
+      descripcion: '',
+      imagen: null
+    });
+  }
+  cancelarActualizarImagen() {
+    this.imagenSeleccionadaEnBase64 = null;
+    this.nombreArchivoImagenSeleccionada = '';
+    this.urlImagenSeleccionada = '';
   }
 
   actualizarImagen() {
@@ -153,6 +161,7 @@ export class SobreNosotrosComponent implements OnInit {
         this.sobreNosotrosServicio.actualizarImagenGaleria(datosImagenActualizada).subscribe({
           next: (respuesta) => {
             this.datosSobreNosotros = respuesta;
+            console.log("CAMBIAR IMAGEN: "+this.datosSobreNosotros);
             Swal.fire({ icon: 'success', text: 'Imagen actualizada.', timer: 1500, showConfirmButton: false });
           },
           error: (error) => {
