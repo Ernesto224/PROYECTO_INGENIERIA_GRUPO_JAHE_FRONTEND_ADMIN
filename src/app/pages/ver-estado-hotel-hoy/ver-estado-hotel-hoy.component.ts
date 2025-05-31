@@ -85,7 +85,6 @@ export class VerEstadoHotelHoyComponent implements OnInit {
     this.habitacionesService.consultarHabitacionesHoy(parametrosConsulta).subscribe({
       next: (respuesta: any) => {
         this.listaHabitacionesConsulta.set(respuesta.lista);
-        console.log(respuesta.lista)
         this.totalRegistros = respuesta.totalRegistros;
         this.totalPaginas = respuesta.totalPaginas;
         this.paginaActual = respuesta.paginaActual;
