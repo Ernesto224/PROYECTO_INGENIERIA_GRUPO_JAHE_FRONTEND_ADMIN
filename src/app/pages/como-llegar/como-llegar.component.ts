@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-como-llegar',
   standalone: true,
@@ -21,36 +22,36 @@ import Swal from 'sweetalert2';
   styleUrl: './como-llegar.component.css',
 })
 export class ComoLlegarComponent implements OnInit {
-  private service = inject(ComoLlegarService);
-  private fb = inject(FormBuilder);
+  private comoLlegarService = inject(ComoLlegarService);
+  private formBuilder = inject(FormBuilder);
 
-  readonly direccion = signal<DireccionDTO>({
+  readonly direccionActual = signal<DireccionDTO>({
     idDireccion: -1,
     descripcion: '',
   });
 
-  formulario: FormGroup = this.fb.group({
+  formularioComoLlegar: FormGroup = this.formBuilder.group({
     descripcion: [''],
   });
 
   ngOnInit(): void {
-    this.obtenerInformacion();
+    this.cargarInformacionDireccion();
   }
 
-  obtenerInformacion(): void {
-    this.service.obtenerDatosComoLlegar().subscribe({
-      next: (data) => {
-        this.direccion.set(data);
-        this.formulario.patchValue({ descripcion: data.descripcion });
+  cargarInformacionDireccion(): void {
+    this.comoLlegarService.obtenerDatosComoLlegar().subscribe({
+      next: (direccionObtenida) => {
+        this.direccionActual.set(direccionObtenida);
+        this.formularioComoLlegar.patchValue({ descripcion: direccionObtenida.descripcion });
       },
       error: (error) => {
-        console.error('Hubo un error', error);
+        console.error('Error al obtener la dirección', error);
       },
     });
   }
 
   actualizarInformacion(): void {
-    if (this.formulario.invalid) {
+    if (this.formularioComoLlegar.invalid) {
       Swal.fire({
         icon: 'error',
         text: 'La descripción es requerida.',
@@ -66,40 +67,39 @@ export class ComoLlegarComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const direccionActualizada: DireccionDTO = {
-          ...this.direccion(),
-          descripcion: this.formulario.value.descripcion,
+    }).then((resultadoConfirmacion) => {
+      if (resultadoConfirmacion.isConfirmed) {
+        const nuevaDireccion: DireccionDTO = {
+          ...this.direccionActual(),
+          descripcion: this.formularioComoLlegar.value.descripcion,
         };
 
-        this.service
-          .enviarNuevoTextoComoLlegar(direccionActualizada)
-          .subscribe({
-            next: (data) => {
-              this.direccion.set(data);
-              this.formulario.patchValue({ descripcion: data.descripcion });
-              Swal.fire({
-                icon: 'success',
-                text: 'Descripción actualizada.',
-                timer: 1500,
-                showConfirmButton: false,
-              });
-            },
-            error: (err) => {
-              console.error(err);
-              Swal.fire({
-                icon: 'error',
-                text: 'Error al actualizar.',
-                timer: 1500,
-                showConfirmButton: false,
-              });
-            },
-          });
+        this.comoLlegarService.enviarNuevoTextoComoLlegar(nuevaDireccion).subscribe({
+          next: (direccionActualizada) => {
+            this.direccionActual.set(direccionActualizada);
+            this.formularioComoLlegar.patchValue({ descripcion: direccionActualizada.descripcion });
+            Swal.fire({
+              icon: 'success',
+              text: 'Descripción actualizada.',
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          },
+          error: (errorActualizacion) => {
+            console.error('Error al actualizar la descripción', errorActualizacion);
+            Swal.fire({
+              icon: 'error',
+              text: 'Error al actualizar.',
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          },
+        });
       }
     });
   }
+
   cancelar(): void {
-    this.formulario.patchValue({ descripcion: this.direccion().descripcion });
+    this.formularioComoLlegar.reset({ descripcion: this.direccionActual().descripcion });
   }
 }
