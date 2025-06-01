@@ -1,10 +1,68 @@
-
-
 <div class="pagina animacion">
 
-    <div class="">
-        <p>publicidad works!</p>
+  <h2 class="titulo-pagina mth">Administrar Publicidad</h2>
+
+  <div class="contenedor-adiministrar-publicidad">
+
+    <div class="subcontenedor-administrar-publicidad">
+
+      <div class="contenedor-botones-formulario publicidad-btn-contenedor">
+          <button mat-flat-button class="actualizar-boton" type="button" (click)="agregarNuevaPublicidad()">Agregar</button>
+          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      <div class="contanedor-tabla">
+
+        <table mat-table [dataSource]="listaPublicidadesDataTable" class="w-full">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{ element.idPublicidad }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="enlacePublicidad">
+            <th mat-header-cell *matHeaderCellDef> Enlace</th>
+           <td mat-cell *matCellDef="let element">
+            <a [href]="element.enlacePublicidad" target="_blank" rel="noopener noreferrer" class="enlace-sin-linea">
+                {{ element.enlacePublicidad }}
+            </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="imagen">
+            <th mat-header-cell *matHeaderCellDef> Imagen </th>
+            <td mat-cell *matCellDef="let element">
+             <img [src]="element.imagen.url" alt="Publicidad" class="imagen-tabla-publicidad" />
+            </td>
+          </ng-container>
+
+          <!-- Acciones -->
+          <ng-container matColumnDef="acciones">
+           <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+                <div class="botones-acciones">
+                    <button mat-icon-button color="primary" (click)="editarPublicidad(element)" matTooltip="Modificar oferta"><mat-icon>edit</mat-icon></button>
+                    <button mat-icon-button color="primary" (click)="eliminarPublicidad(element.idPublicidad)"> <mat-icon>delete</mat-icon></button>
+                </div>
+            </td>
+          </ng-container>
+
+          <!-- Encabezados y filas -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+        </table>
+
+        <!-- Paginador -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" 
+          showFirstLastButtons
+          aria-label="Seleccionar página">
+        </mat-paginator>
+
+      </div>
+
     </div>
-    
-   
+
+  </div>
+
 </div>
