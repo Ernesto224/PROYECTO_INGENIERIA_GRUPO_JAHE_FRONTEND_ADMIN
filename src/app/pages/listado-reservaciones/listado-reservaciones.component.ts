@@ -12,6 +12,8 @@ import { ReservacionDTO } from '../../Core/models/ReservacionDTO';
 import { CustomMatPaginatorIntlComponent } from '../../Core/components/custom-mat-paginator-intl/custom-mat-paginator-intl/custom-mat-paginator-intl.component';
 import { RespuestaConsultaReservaDTO } from '../../Core/models/RespuestaConsultaReservaDTO ';
 import { ChangeDetectorRef } from '@angular/core';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -149,17 +151,58 @@ export class ListadoReservacionesComponent implements OnInit {
     this.eliminarReservacion(this.reservacion.idReserva);
     this.verReservacion = false;
   }
-
-  public imprimirReserva(): void {
+  refrescarDatos(): void {
+    this.paginaActual = 1;
+    this.obtenerReservaciones();
+  }
+  public generarPDF(): void {
     if (!this.reservacion) return;
-    const ventanaImprimir = window.open('', '_blank');
-    if (ventanaImprimir) {
-      ventanaImprimir.document.write('<html><head><title>Imprimir Reservación</title></head><body>');
-      ventanaImprimir.document.write(`<pre>${JSON.stringify(this.reservacion, null, 2)}</pre>`);
-      ventanaImprimir.document.write('</body></html>');
-      ventanaImprimir.document.close();
-      ventanaImprimir.print();
-    }
+
+    const doc = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const fechaActual = new Date().toLocaleDateString();
+    doc.setFontSize(18);
+    doc.text(`Detalle de Reservación - ${fechaActual}`, 14, 15);
+
+    const body = [
+      ['ID Reserva', this.reservacion.idReserva],
+      ['Nombre', this.reservacion.nombre],
+      ['Apellidos', this.reservacion.apellidos],
+      ['Email', this.reservacion.email],
+      ['Número de Tarjeta', this.reservacion.tarjeta],
+      ['ID Transacción', this.reservacion.transaccion],
+      ['Fecha de Llegada', new Date(this.reservacion.fechaLlegada).toLocaleDateString()],
+      ['Fecha de Salida', new Date(this.reservacion.fechaSalida).toLocaleDateString()],
+      ['Tipo de Habitación', this.reservacion.tipo],
+      ['Fecha de Registro', new Date(this.reservacion.fecha).toLocaleDateString()]
+    ];
+
+    autoTable(doc, {
+      head: [['Campo', 'Valor']],
+      body,
+      startY: 25,
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+        valign: 'middle'
+      },
+      headStyles: {
+        fillColor: [41, 128, 185],
+        textColor: 255,
+        fontStyle: 'bold'
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245]
+      }
+    });
+
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl, '_blank');
   }
 
   public volver(): void {

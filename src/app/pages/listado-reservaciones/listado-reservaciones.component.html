@@ -1,192 +1,196 @@
 <div class="pagina animacion">
-  <h1 class="titulo-pagina">Listado de Reservaciones</h1>
-  <div class="contenedor-reservaciones">
-    <section class="subcontenedor-reservaciones">
-      <div class="contenedor-tabla-reservaciones">
-        <table
-          mat-table
-          [dataSource]="reservaciones()"
-          class="mat-elevation-z8 tabla-reservaciones"
-        >
-          <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef>Fecha</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.fecha | date : "shortDate" }}
-            </td>
-          </ng-container>
+  <h2 class="titulo-pagina mth">Listado de Reservaciones</h2>
 
-          <ng-container matColumnDef="idReserva">
-            <th mat-header-cell *matHeaderCellDef>Id Reserva</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.idReserva }}
-            </td>
-          </ng-container>
+  <div class="contenedor-tabla">
+    <div class="table-wrapper">
+      <table
+        mat-table
+        [dataSource]="reservaciones()"
+        class="w-full"
+      >
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.fecha | date: "shortDate" }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>Nombre</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.nombre }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="idReserva">
+          <th mat-header-cell *matHeaderCellDef>Id Reserva</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.idReserva }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="apellidos">
-            <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.apellidos }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.nombre }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.email }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="apellidos">
+          <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.apellidos }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="tarjeta">
-            <th mat-header-cell *matHeaderCellDef>Tarjeta</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.tarjeta }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.email }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="transaccion">
-            <th mat-header-cell *matHeaderCellDef>Transacción</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.transaccion }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="tarjeta">
+          <th mat-header-cell *matHeaderCellDef>Tarjeta</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.tarjeta }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="fechaLlegada">
-            <th mat-header-cell *matHeaderCellDef>Fecha Llegada</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.fechaLlegada | date : "shortDate" }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="transaccion">
+          <th mat-header-cell *matHeaderCellDef>Transacción</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.transaccion }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="fechaSalida">
-            <th mat-header-cell *matHeaderCellDef>Fecha Salida</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.fechaSalida | date : "shortDate" }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="fechaLlegada">
+          <th mat-header-cell *matHeaderCellDef>Fecha Llegada</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.fechaLlegada | date: "shortDate" }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-            <td mat-cell *matCellDef="let reservacion">
-              {{ reservacion.tipo }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="fechaSalida">
+          <th mat-header-cell *matHeaderCellDef>Fecha Salida</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.fechaSalida | date: "shortDate" }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="ver">
-            <th mat-header-cell *matHeaderCellDef>Ver</th>
-            <td mat-cell *matCellDef="let reservacion">
-              <button
-                mat-icon-button
-                color="primary"
-                (click)="verReservacionEspecifica(reservacion.idReserva)"
-                aria-label="Ver reservación"
-              >
-                <mat-icon>visibility</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let reservacion">
+            {{ reservacion.tipo }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="eliminar">
-            <th mat-header-cell *matHeaderCellDef>Eliminar</th>
-            <td mat-cell *matCellDef="let reservacion">
-              <button
-                mat-icon-button
-                color="warn"
-                (click)="eliminarReservacion(reservacion.idReserva)"
-                aria-label="Eliminar reservación"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-
-        <mat-paginator
-          [length]="totalRegistros"
-          [pageSize]="maximoPorPagina"
-          [pageIndex]="paginaActual - 1"
-          [pageSizeOptions]="[5, 10, 20]"
-          showFirstLastButtons
-          (page)="onPageChange($event)"
-        >
-        </mat-paginator>
-      </div>
-    </section>
-
-    <div
-      *ngIf="verReservacion"
-      class="subcontenedor-reservaciones detalle-reservacion"
-    >
-      <mat-card class="card-detalle-reservacion">
-        <mat-card-header>
-          <mat-card-title>Detalle de Reservación</mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item
-              ><strong>Fecha:</strong>
-              {{ reservacion.fecha | date : "mediumDate" }}</mat-list-item
+        <ng-container matColumnDef="ver">
+          <th mat-header-cell *matHeaderCellDef>Ver</th>
+          <td mat-cell *matCellDef="let reservacion">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="verReservacionEspecifica(reservacion.idReserva)"
+              aria-label="Ver reservación"
             >
-            <mat-list-item
-              ><strong>ID Reserva:</strong>
-              {{ reservacion.idReserva }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Nombre:</strong> {{ reservacion.nombre }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Apellidos:</strong>
-              {{ reservacion.apellidos }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Email:</strong> {{ reservacion.email }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Tarjeta:</strong>
-              {{ reservacion.tarjeta }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Transacción:</strong>
-              {{ reservacion.transaccion }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Fecha Llegada:</strong>
-              {{
-                reservacion.fechaLlegada | date : "mediumDate"
-              }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Fecha Salida:</strong>
-              {{ reservacion.fechaSalida | date : "mediumDate" }}</mat-list-item
-            >
-            <mat-list-item
-              ><strong>Tipo:</strong> {{ reservacion.tipo }}</mat-list-item
-            >
-          </mat-list>
-        </mat-card-content>
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-        <mat-card-actions align="end" class="acciones-detalle-reservacion">
-          <button mat-raised-button color="warn" (click)="eliminarReserva()">
-            <mat-icon>delete</mat-icon> Eliminar
-          </button>
-          <button mat-raised-button color="accent" (click)="imprimirReserva()">
-            <mat-icon>print</mat-icon> Imprimir
-          </button>
-          <button mat-raised-button color="primary" (click)="volver()">
-            <mat-icon>arrow_back</mat-icon> Volver
-          </button>
-        </mat-card-actions>
-      </mat-card>
+        <ng-container matColumnDef="eliminar">
+          <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+          <td mat-cell *matCellDef="let reservacion">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="eliminarReservacion(reservacion.idReserva)"
+              aria-label="Eliminar reservación"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
+  </div>
+
+  <mat-paginator
+    [length]="totalRegistros || 0"
+    [pageSize]="maximoPorPagina"
+    [pageIndex]="paginaActual - 1"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+    aria-label="Seleccionar página"
+  >
+  </mat-paginator>
+
+  <div class="acciones-tabla mt-4 flex justify-end gap-3">
+    <button mat-raised-button color="primary" (click)="refrescarDatos()">
+      <mat-icon>refresh</mat-icon> Refrescar
+    </button>
+  </div>
+
+  <div *ngIf="verReservacion" class="detalle-reservacion mt-6">
+    <mat-card class="card-detalle-reservacion">
+      <mat-card-header>
+        <mat-card-title>Detalle de Reservación</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <strong>Fecha:</strong>
+            {{ reservacion.fecha | date: "mediumDate" }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>ID Reserva:</strong>
+            {{ reservacion.idReserva }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Nombre:</strong>
+            {{ reservacion.nombre }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Apellidos:</strong>
+            {{ reservacion.apellidos }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Email:</strong>
+            {{ reservacion.email }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Tarjeta:</strong>
+            {{ reservacion.tarjeta }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Transacción:</strong>
+            {{ reservacion.transaccion }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Fecha Llegada:</strong>
+            {{ reservacion.fechaLlegada | date: "mediumDate" }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Fecha Salida:</strong>
+            {{ reservacion.fechaSalida | date: "mediumDate" }}
+          </mat-list-item>
+          <mat-list-item>
+            <strong>Tipo:</strong>
+            {{ reservacion.tipo }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+
+      <mat-card-actions align="end" class="acciones-detalle-reservacion">
+        <button mat-raised-button color="warn" (click)="eliminarReserva()">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+        <button mat-raised-button color="accent" (click)="generarPDF()">
+                <mat-icon>picture_as_pdf</mat-icon> Generar PDF
+            </button>
+        <button mat-raised-button color="primary" (click)="volver()">
+          <mat-icon>arrow_back</mat-icon> Volver
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
