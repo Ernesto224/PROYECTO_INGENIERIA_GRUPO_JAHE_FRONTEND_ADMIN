@@ -1,110 +1,74 @@
-
-
 <div class="pagina animacion">
 
   <h2 class="titulo-pagina mth">Modificar Tipo de Habitación</h2>
 
   <div class="contenedor-modificar-tipo-habitacion">
 
-
-
-
     <div class="subcontenedor-modificar-tipo-habitacion">
 
-
-
-         
-    <mat-form-field appearance="outline" class="w-full select-modificar-tipo-habitacion">
-      <mat-label>Seleccionar tipo de habitación</mat-label>
-      <mat-select (selectionChange)="onSelectHabitacion($event.value)">
-        <mat-option *ngFor="let habitacion of listaTipoDeHabitaciones" [value]="habitacion.idTipoDeHabitacion">
-          {{ habitacion.idTipoDeHabitacion }} - {{ habitacion.nombre }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-   
-  
-    <form class="form-container-tipohabitacion" [formGroup]="form">
-
-      <div class="contenedor-doble-formulario">
-
-        <mat-form-field appearance="outline" class="w-full ">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Tarifa Diaria</mat-label>
-          <input matInput type="number" formControlName="tarifaDiaria" step="0.01" min="0">
-        </mat-form-field>
-
-      </div>
-
-  
-      <mat-form-field appearance="outline" class="w-full descripcion-modificar-tipo-habitacion">
-        <mat-label>Descripción</mat-label>
-        <textarea matInput formControlName="descripcion"></textarea>
+      <mat-form-field appearance="outline" class="w-full select-modificar-tipo-habitacion">
+        <mat-label>Seleccionar tipo de habitación</mat-label>
+        <mat-select (selectionChange)="onSelectHabitacion($event.value)">
+          <mat-option *ngFor="let habitacion of listaTipoDeHabitaciones" [value]="habitacion.idTipoDeHabitacion">
+            {{ habitacion.idTipoDeHabitacion }} - {{ habitacion.nombre }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-  
-  
-      
 
-      <div class="contenedor-imagen-habitacion">
+      <form class="form-container-tipohabitacion" [formGroup]="form">
 
-        <h5>Imagen de la habitación</h5>
+        <div class="contenedor-doble-formulario">
 
-      
-        <div class="subcontenedor-imagen-habitacion">
-
-
-          <div *ngIf="imagenUrl" class="imagen-selecciona">
-            <img [src]="imagenUrl" alt="Imagen seleccionada" style="max-width: 200px;" />
-          </div>
-  
-  
-          <mat-form-field appearance="outline" class="w-full input-imagen">
-            <mat-label class="label-input-imagen">Cambiar imagen (opcional)</mat-label>
-            <input matInput [value]="nombreArchivo || ''" disabled>
-            <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
-              <mat-icon>upload</mat-icon>
-            </button>
+          <mat-form-field appearance="outline" class="w-full ">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
           </mat-form-field>
-          
-          <input class="miter" type="file" id="imagen" #fileInput (change)="onFileSelected($event)" hidden />
-    
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Tarifa Diaria</mat-label>
+            <input matInput type="number" formControlName="tarifaDiaria" step="0.01" min="0">
+          </mat-form-field>
 
         </div>
 
-       
-        
-      </div>
+        <mat-form-field appearance="outline" class="w-full descripcion-modificar-tipo-habitacion">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion"></textarea>
+        </mat-form-field>
 
-    
-      
-  
-      <div class="contenedor-botones-formulario">
-        <button mat-flat-button class="actualizar-boton" type="button" (click)="actualizar()">Actualizar</button>
-        <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">Cancelar</button>
-      </div>
+        <div class="contenedor-imagen-habitacion">
 
-     
-    </form>
+          <h5>Imagen de la habitación</h5>
 
-   
+          <div class="subcontenedor-imagen-habitacion">
 
+            <div *ngIf="imagenUrl" class="imagen-selecciona">
+              <img [src]="imagenUrl" alt="Imagen seleccionada" style="max-width: 200px;" />
+            </div>
+
+            <mat-form-field appearance="outline" class="w-full input-imagen">
+              <mat-label class="label-input-imagen">Cambiar imagen (opcional)</mat-label>
+              <input matInput [value]="nombreArchivo || ''" disabled>
+              <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
+                <mat-icon>upload</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <input class="miter" type="file" id="imagen" #fileInput (change)="onFileSelected($event)" hidden />
+
+          </div>
+
+        </div>
+
+        <div class="contenedor-botones-formulario">
+          <button mat-flat-button class="actualizar-boton" type="button" (click)="actualizar()">Actualizar</button>
+          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">Cancelar</button>
+        </div>
+
+      </form>
 
     </div>
-    
 
-        
   </div>
 
-
-    
-
-
-
-    
-   
 </div>
