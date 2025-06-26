@@ -17,7 +17,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { OfertaDTO } from '../../Core/models/OfertaDTO';
 import { OfertaServiceService } from '../../Core/services/OfertaService/oferta-service.service';
 import { signal } from '@angular/core';
-import { ModalModificarOfertaComponent } from '../../Core/custom/modal-modificar-oferta/modal-modificar-oferta.component';
 import Swal from 'sweetalert2';
 import { TipoDeHabitacionDTO } from '../../Core/models/TipoDeHabitacionDTO';
 import { MatIcon } from '@angular/material/icon';
