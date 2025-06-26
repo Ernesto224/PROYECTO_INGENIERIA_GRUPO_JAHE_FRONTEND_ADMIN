@@ -2,3 +2,49 @@
   width: 0px;
   flex-grow: 1;
 }
+.detalle-reservacion {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card-detalle-reservacion {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-detalle-reservacion mat-card-header {
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.5rem;
+}
+
+.card-detalle-reservacion mat-card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+mat-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+mat-list-item strong {
+  margin-right: 0.5rem;
+  min-width: 140px;
+}
+
+.acciones-detalle-reservacion {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid transparent;
+}
+
+.acciones-detalle-reservacion button mat-icon {
+  margin-right: 0.4rem;
+}
