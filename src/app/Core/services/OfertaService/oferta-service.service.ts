@@ -23,5 +23,9 @@ export class OfertaServiceService {
   modificarOferta(oferta: OfertaDTO): Observable<any> {
     return this.http.put<any>(`${this.ofertaUrl}`, oferta, {headers: { auth: 'true' }});
   }
+
+  crearOferta(oferta: OfertaDTO): Observable<any> {
+    return this.http.post<any>(`${this.ofertaUrl}`, oferta, {headers: { auth: 'true' }});
+  }
   
 }
