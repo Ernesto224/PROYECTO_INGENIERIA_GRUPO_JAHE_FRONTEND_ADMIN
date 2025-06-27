@@ -10,7 +10,7 @@ import { HomeModificarDTO } from '../../models/HomeModificarDTO';
 export class HomeService {
 
   private http = inject(HttpClient);
-    private urlBase = "https://localhost:7169/api/Home";
+    private urlBase = "http://www.hotel-jade-api.somee.com/api/Home";
   
     constructor() { }
   

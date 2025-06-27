@@ -7,8 +7,8 @@ import { GaleriaModificarDTO } from '../../models/GaleriaModificarDTO';
   providedIn: 'root'
 })
 export class SobreNosotrosService {
-  private urlBase: string = 'https://localhost:7169/api/SobreNosotros';
-  private urlBaseActualizarImagen = 'https://localhost:7169/api/SobreNosotros/ActualizarImagen';
+  private urlBase: string = 'http://www.hotel-jade-api.somee.com/api/SobreNosotros';
+  private urlBaseActualizarImagen = 'http://www.hotel-jade-api.somee.com/api/SobreNosotros/ActualizarImagen';
   private http = inject(HttpClient)
   constructor() { }
 

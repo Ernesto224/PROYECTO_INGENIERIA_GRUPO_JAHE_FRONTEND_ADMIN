@@ -9,7 +9,7 @@ import { RespuestaConsultaReservaDTO } from '../../models/RespuestaConsultaReser
 })
 export class ListadoReservacionesService {
   private http = inject(HttpClient);
-  private urlBase = 'https://localhost:7169/api/Reserva';
+  private urlBase = 'http://www.hotel-jade-api.somee.com/api/Reserva';
 
   constructor() {}
 
