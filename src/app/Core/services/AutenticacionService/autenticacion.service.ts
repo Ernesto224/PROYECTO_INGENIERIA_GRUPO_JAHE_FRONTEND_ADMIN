@@ -13,7 +13,7 @@ export class AutenticacionService {
 
   private seguridad = inject(SeguridadService);
   private http = inject(HttpClient);
-  private urlBase = "https://localhost:7169/api/Autenticacion";
+  private urlBase = "http://www.hotel-jade-api.somee.com/api/Autenticacion";
 
   constructor() { }
 

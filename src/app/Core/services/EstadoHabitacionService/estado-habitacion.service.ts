@@ -11,7 +11,7 @@ export class EstadoHabitacionService {
 
   
   private http = inject(HttpClient);
-  private urlBase = "https://localhost:7169/api/EstadoHabitacion";
+  private urlBase = "http://www.hotel-jade-api.somee.com/api/EstadoHabitacion";
   
   constructor() { }
   

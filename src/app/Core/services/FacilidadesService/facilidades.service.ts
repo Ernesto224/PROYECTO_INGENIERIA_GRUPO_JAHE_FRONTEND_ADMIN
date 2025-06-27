@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class FacilidadesService {
 
   private http = inject(HttpClient);
-  private urlBase = "https://localhost:7169/api/Facilidad";
+  private urlBase = "http://www.hotel-jade-api.somee.com/api/Facilidad";
 
   constructor() { }
 
