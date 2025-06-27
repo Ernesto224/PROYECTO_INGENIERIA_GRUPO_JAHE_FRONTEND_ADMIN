@@ -2,7 +2,7 @@
 
 ## Hosting del proyecto
 ```
-[http://www.hotel-jade-api.somee.com/](https://proyecto-ingenieria-grupo-jahe-fron.vercel.app/login)
+https://proyecto-ingenieria-grupo-jahe-fron.vercel.app/login
 ```
 
 ## 🧾 Descripción
