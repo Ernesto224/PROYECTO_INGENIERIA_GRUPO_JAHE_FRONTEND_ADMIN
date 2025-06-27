@@ -1,0 +1,22 @@
+.contenedor-adiministrar-habitacion{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  
+}
+
+
+.subcontenedor-administrar-habitacion{
+    /* background-color: yellow; */
+    width: 100%;
+    max-width: 1000px;
+}
+
+.select-tipo-habitacion{
+    width: 100%;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}

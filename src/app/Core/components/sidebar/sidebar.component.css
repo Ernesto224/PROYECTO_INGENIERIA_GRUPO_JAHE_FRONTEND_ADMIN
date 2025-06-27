@@ -42,7 +42,8 @@ a{
   
   .nav__link:hover{
     background: linear-gradient(135deg, #00c1e2, #00eaf2, #00fafd);
-    color: white;
+    background: linear-gradient(to right, #2c3e50, #2c3e50);
+    color: #ebf5fe;
   }
   .nav__icon{
     font-size: 1.25rem;
@@ -96,11 +97,33 @@ ul{
   justify-self: flex-end;
   transition: .5s;
 }
+
+/*
 .collapse__menu{
   display: none;
   padding: 10px 2.25rem  25px 0px;
   margin-bottom: -30px;
 }
+*/
+
+.collapse__menu {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.collapse__menu.showCollapse {
+  max-height: 500px; 
+  opacity: 1;
+  padding-top: 1em;
+  visibility: visible;
+}
+/* Ajusta si tienes más contenido */
+
 .collapse__sublink{
   color: var(--text-color);/*2025*/
   font-size: var(--small-font-size);
@@ -119,11 +142,12 @@ ul{
 }
 
 /*Show collapse*/
+/*
 .showCollapse{
   display: flex;
   flex-direction: column;
 }
-
+*/
 /*Rotate icon*/
 .rotate{
   transform: rotate(180deg);
@@ -138,7 +162,7 @@ ul{
 
 /*Active links menu*/
 .active {
-    background: linear-gradient(135deg, #00c1e2, #00eaf2, #00fafd);
     background: linear-gradient(135deg, #00c1e2, #00ebf6);
+    background: linear-gradient(to right, #394e63, #34495e);
     color: white;
 }

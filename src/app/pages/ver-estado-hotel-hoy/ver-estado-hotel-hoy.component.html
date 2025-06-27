@@ -1,8 +1,53 @@
-
 <div class="pagina animacion">
 
-    <div class="">
-        <p>ver-estado-hotel-hoy works!</p>
+    <h2 class="titulo-pagina mth">Estado del Hotel Hoy -- {{fechaActual | date: 'MM/dd/yyyy HH:mm'}}</h2>
+
+    <label class="titulo-pagina mth"> </label>
+
+    <div class="contanedor-tabla">
+
+        <table mat-table [dataSource]="listaHabitacionesConsulta()" class="w-full">
+
+            <!-- Número de Habitación -->
+            <ng-container matColumnDef="numerohabitacion">
+                <th mat-header-cell *matHeaderCellDef> Número de Habitación </th>
+                <td mat-cell *matCellDef="let element"> {{ element.numero }} </td>
+            </ng-container>
+
+            <!-- Tipo de Habitación -->
+            <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef> Tipo de Habitación </th>
+                <td mat-cell *matCellDef="let element"> {{ element.tipoDeHabitacion.nombre }} </td>
+            </ng-container>
+
+            <!-- Monto Diario de Habitación -->
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let element"> {{ element.estado }} </td>
+            </ng-container>
+
+            <!-- Encabezados y filas -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <!-- Paginador -->
+        <mat-paginator [length]="totalRegistros || 0" [pageSize]="maximoPorPagina" [pageIndex]="paginaActual - 1"
+            [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="onPageChange($event)"
+            aria-label="Seleccionar página">
+        </mat-paginator>
+
+        <div class="acciones-tabla mt-4 flex justify-end gap-3">
+            <button mat-raised-button color="primary" (click)="refrescarDatos()">
+                <mat-icon>refresh</mat-icon> Refrescar
+            </button>
+            <button mat-raised-button color="accent" (click)="generarPDF()">
+                <mat-icon>picture_as_pdf</mat-icon> Generar PDF
+            </button>
+        </div>
+
+
     </div>
-    
+
 </div>

@@ -1,0 +1,177 @@
+<div class="pagina animacion">
+
+    <h2 class="titulo-pagina mth">Administrar ofertas</h2>
+
+    <div class="contenedor-modificar-tipo-habitacion">
+
+        <div class="subcontenedor-modificar-facilidades">
+
+            <!-- Formulario unificado para agregar/modificar -->
+            <div class="formulario-oferta">
+                <form [formGroup]="ofertaForm" (ngSubmit)="guardarCambios()" class="form-container-facilidad">
+
+                    <div class="contenedor-doble-formulario">
+
+                        <mat-form-field appearance="outline" class="w-full descripcion-modificar-facilidades">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Porcentaje Descuento</mat-label>
+                            <input matInput type="number" formControlName="porcentaje" min="0" max="100" required>
+                        </mat-form-field>
+
+                    </div>
+
+
+                    <div class="contenedor-doble-formulario">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Fecha Inicio</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="fechaInicio" required>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Fecha Final</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="fechaFinal" required>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+
+
+
+                    <mat-form-field appearance="outline" class="w-full select-modificar-facilidades">
+                        <mat-label>Tipo de Habitación</mat-label>
+                        <mat-select formControlName="tipoDeHabitacion" required>
+                            <mat-option *ngFor="let tipo of listaTipoDeHabitaciones" [value]="tipo.idTipoDeHabitacion">
+                                {{ tipo.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+
+                    <div class="contenedor-imagen-facilidad">
+    <h5>Imagen de la Oferta</h5>
+    <div class="subcontenedor-imagen-facilidad">
+        <!-- Vista previa de la imagen -->
+        <div class="imagen-selecciona" *ngIf="imagenUrl">
+            <img [src]="imagenUrl" alt="Imagen seleccionada" class="imagen-preview">
+        </div>
+
+        <!-- Input para seleccionar imagen (oculto) -->
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden #fileInput>
+
+        <!-- Campo visual para mostrar el nombre del archivo -->
+        <mat-form-field appearance="outline" class="w-full input-imagen">
+            <mat-label class="label-input-imagen">
+                {{imagenUrl ? 'Cambiar imagen' : 'Seleccionar imagen'}}
+            </mat-label>
+            <input matInput [value]="nombreArchivo || 'Ningún archivo seleccionado'" disabled>
+            <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
+                <mat-icon>upload</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="form-buttons">
+    <button mat-raised-button color="primary" type="submit">
+        {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="cancelarEdicion()" *ngIf="modoEdicion">
+        Cancelar
+    </button>
+</div>
+                </form>
+            </div>
+
+
+
+            <!-- Tabla de ofertas -->
+
+            <div class="contanedor-tabla">
+
+                <table mat-table [dataSource]="ofertasPaginadas()" class="w-full">
+
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.nombre }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaInicio">
+                        <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.fechaInicio | date:'yyyy-MM-dd' }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaFin">
+                        <th mat-header-cell *matHeaderCellDef> Fecha Final </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.fechaFinal | date:'yyyy-MM-dd' }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="porcentaje">
+                        <th mat-header-cell *matHeaderCellDef> Porcentaje Descuento </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.porcentaje }}%</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoDeHabitacion">
+                        <th mat-header-cell *matHeaderCellDef> Tipo Habitación </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.tipoDeHabitacion.nombre }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef> Estado </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-slide-toggle [checked]="element.activo" (change)="onToggleActivo(element.idOferta)">
+                            </mat-slide-toggle>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button color="primary" (click)="editarOferta(element)"
+                                matTooltip="Editar oferta">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <ng-container *matNoDataRow>
+                        <tr class="mat-row">
+                            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                                {{ isLoading ? 'Cargando...' : 'No hay registros' }}
+                            </td>
+                        </tr>
+                    </ng-container>
+
+                </table>
+
+                <!-- Paginador -->
+                <mat-paginator [length]="totalRegistros || 0" [pageSize]="maximoPorPagina"
+                    [pageIndex]="paginaActual - 1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    (page)="onPageChange($event)" aria-label="Seleccionar página">
+                </mat-paginator>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- <div *ngIf="modalModificarOferta" class="modal-overlay">
+        <div class="modal-container">
+            <app-modal-modificar-oferta [oferta]="ofertaSeleccionada" (cerrar)="cerrarFormularioModificar()">
+            </app-modal-modificar-oferta>
+        </div>
+    </div> -->
+
+</div>

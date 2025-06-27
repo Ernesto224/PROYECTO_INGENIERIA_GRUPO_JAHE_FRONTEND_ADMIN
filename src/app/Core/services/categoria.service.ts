@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CategoriaService {
-
   private http = inject(HttpClient);
   private urlBase = "http://gestordocumental.somee.com/api/Categoria";// esto se haria mas profesional creando un enviroment, que son ambientes de desarrollo uno para pruebas y otro para produccion
 

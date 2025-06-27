@@ -1,10 +1,67 @@
-
-
-
 <div class="pagina animacion">
 
-    <div class="">
-        <p>sobre-nosotros works!</p>
+  <h2 class="titulo-pagina mth">Modificar Página Sobre Nosotros</h2>
+
+  <div class="contenedor-sobre-nosotros">
+
+    <div class="subcontenedor-sobre-nosotros">
+
+      <!-- Formulario de descripción -->
+      <form class="formulario-sobre-nosotros" [formGroup]="formularioSobreNosotros">
+        <mat-form-field appearance="outline" class="w-full descripcion-sobre-nosotros">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion"></textarea>
+        </mat-form-field>
+
+        <div class="contenedor-botones-sobre-nosotros">
+          <button mat-flat-button class="actualizar-boton" type="button" (click)="actualizarDescripcion()">Actualizar</button>
+          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">Cancelar</button>
+        </div>
+      </form>
+
+      <!-- Galería de imágenes -->
+      <div *ngIf="datosSobreNosotros?.imagenes?.length" class="galeria-sobre-nosotros">
+        <h5>Galería de imágenes</h5>
+
+        <mat-grid-list cols="3" rowHeight="150px" gutterSize="10px">
+          <mat-grid-tile
+            *ngFor="let imagen of datosSobreNosotros.imagenes"
+            (click)="seleccionarImagen(imagen.idImagen)"
+            class="tile-imagen-sobre-nosotros">
+            <img [src]="imagen.url" alt="Imagen" class="imagen-sobre-nosotros" />
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+
+      <!-- Actualizar imagen -->
+      <div *ngIf="idImagenSeleccionada" class="actualizacion-imagen-sobre-nosotros">
+
+        <h5>Actualizar Imagen</h5>
+
+        <div class="contenedor-imagen-sobre-nosotros">
+
+          <div *ngIf="urlImagenSeleccionada" class="imagen-seleccionada-sobre-nosotros">
+            <img [src]="urlImagenSeleccionada" alt="Imagen seleccionada" />
+          </div>
+
+          <mat-form-field appearance="outline" class="w-full input-nueva-imagen">
+            <mat-label class="label-nueva-imagen">Seleccionar nueva imagen</mat-label>
+            <input matInput [value]="nombreArchivoImagenSeleccionada || ''" disabled>
+            <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
+              <mat-icon>upload</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <input type="file" #fileInput (change)="alSeleccionarArchivo($event)" hidden />
+        </div>
+
+        <div class="contenedor-botones-sobre-nosotros">
+          <button mat-flat-button class="actualizar-boton" type="button" (click)="actualizarImagen()">Actualizar Imagen</button>
+          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelarActualizarImagen()">Cancelar</button>
+        </div>
+
+      </div>
+
     </div>
-    
+  </div>
 </div>
