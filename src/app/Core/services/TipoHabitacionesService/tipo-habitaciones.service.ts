@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class TipoHabitacionesService {
 
   private http = inject(HttpClient);
-  private urlBase = "http://www.hotel-jade-api.somee.com/api/Tarifas";
+  private urlBase = "https://www.hotel-jade-api.somee.com/api/Tarifas";
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class TipoHabitacionesService {
   }
 
   public actualizarTipoHabitacion(tipoHabitacion: any) {
-    return this.http.put('http://www.hotel-jade-api.somee.com/api/Tarifas', tipoHabitacion, {headers: { auth: 'true' }});
+    return this.http.put('https://www.hotel-jade-api.somee.com/api/Tarifas', tipoHabitacion, {headers: { auth: 'true' }});
   }
 
 }

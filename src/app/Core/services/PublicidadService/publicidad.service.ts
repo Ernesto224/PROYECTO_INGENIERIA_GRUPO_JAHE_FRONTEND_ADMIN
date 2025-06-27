@@ -11,7 +11,7 @@ import { PublicidadCrearDTO } from '../../models/PublicidadCrearDTO';
 export class PublicidadService {
 
   private http = inject(HttpClient);
-  private urlBase = "http://www.hotel-jade-api.somee.com/api/Publicidad";
+  private urlBase = "https://www.hotel-jade-api.somee.com/api/Publicidad";
  
   constructor() { }
  

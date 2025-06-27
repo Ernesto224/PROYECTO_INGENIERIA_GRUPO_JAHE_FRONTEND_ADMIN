@@ -10,7 +10,7 @@ export class TemporadaServiceService {
 
   constructor(private http: HttpClient) { }
  
-   temporadaUrl = "http://www.hotel-jade-api.somee.com/api/Temporada";
+   temporadaUrl = "https://www.hotel-jade-api.somee.com/api/Temporada";
 
      modificarOferta(temporadaDTO: temporadaDTO): Observable<any> {
        return this.http.put<any>(`${this.temporadaUrl}/ModificarTemporadaAlta`, temporadaDTO, {headers: { auth: 'true' }});

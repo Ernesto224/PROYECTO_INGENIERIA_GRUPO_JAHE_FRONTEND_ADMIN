@@ -10,7 +10,7 @@ export class OfertaServiceService {
 
   constructor(private http: HttpClient) { }
 
-  ofertaUrl = "http://www.hotel-jade-api.somee.com/api/Oferta";
+  ofertaUrl = "https://www.hotel-jade-api.somee.com/api/Oferta";
 
   obtenerOfertasPaginadas(parametrosConsulta: any): Observable<any[]>{
     return this.http.post<any[]>(`${this.ofertaUrl}/paginadas`, parametrosConsulta, {headers: { auth: 'true' }});
