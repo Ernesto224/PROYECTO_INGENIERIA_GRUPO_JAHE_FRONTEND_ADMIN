@@ -1,6 +1,6 @@
 
 
-.contenedor-modificar-facilidades{
+.contenedor-modificar-tipo-habitacion{
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -12,18 +12,18 @@
 }
 
 
-.subcontenedor-modificar-facilidades{
+.subcontenedor-modificar-tipo-habitacion{
     /* background-color: blue; */
     width: 100%;
     max-width: 1000px;
 }
 
 
-.select-modificar-facilidades{
+.select-modificar-tipo-habitacion{
     width: 100%;
 }
 
-.form-container-facilidad img{
+.form-container-tipohabitacion img{
     width: 160px;
     border-radius: 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -40,8 +40,12 @@
    
 }
 
-.descripcion-modificar-facilidades{
+.descripcion-modificar-tipo-habitacion{
     width: 100%;
+}
+
+.contanedor-tabla {
+    padding-top: 2em;
 }
 
 .input-imagen{
@@ -53,20 +57,23 @@
     color: gray;
 }
 
-.contenedor-imagen-facilidad{
+
+.contenedor-imagen-habitacion{
     background-color:rgb(249, 249, 249);
     border-radius: 10px;
+
     padding: 10px;
+    
 }
 
-.subcontenedor-imagen-facilidad{
+.subcontenedor-imagen-habitacion{
     /* background-color: blue; */
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
-    min-height: 140px;
-    padding-top: 1em;
+    height: 140px;
+  
 }
 
 .imagen-selecciona{

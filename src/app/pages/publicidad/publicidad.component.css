@@ -1,0 +1,106 @@
+.contenedor-modificar-tipo-habitacion {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 10px;
+  width: 100%;
+  /* background-color: red; */
+}
+
+.subcontenedor-modificar-tipo-habitacion {
+  /* background-color: blue; */
+  width: 100%;
+  max-width: 1000px;
+}
+
+.select-modificar-tipo-habitacion {
+  width: 100%;
+}
+
+.form-container-tipohabitacion img {
+  width: 160px;
+  border-radius: 15px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.contenedor-doble-formulario {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contenedor-doble-formulario mat-form-field {
+  width: 49%;
+}
+
+.descripcion-modificar-tipo-habitacion {
+  width: 100%;
+}
+
+.input-imagen {
+  width: 100%;
+  height: 50px;
+}
+
+.label-input-imagen {
+  color: gray;
+}
+
+.contenedor-imagen-habitacion {
+  background-color: rgb(249, 249, 249);
+  border-radius: 10px;
+
+  padding: 10px;
+}
+
+.subcontenedor-imagen-habitacion {
+  /* background-color: blue; */
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 140px;
+}
+
+.imagen-selecciona {
+  width: 200px;
+}
+
+.contenedor-adiministrar-publicidad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.subcontenedor-administrar-publicidad {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.imagen-tabla-publicidad {
+  width: 50px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+.enlace-sin-linea {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.enlace-sin-linea:hover {
+  text-decoration: underline;
+}
+
+.botones-acciones {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.publicidad-btn-contenedor {
+  margin-bottom: 20px;
+}

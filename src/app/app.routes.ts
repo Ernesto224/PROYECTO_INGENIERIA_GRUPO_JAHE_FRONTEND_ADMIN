@@ -14,6 +14,7 @@ import { administradorGuard } from './Core/guards/administrador.guard';
 import { ModificarTipoHabitacionComponent } from './pages/modificar-tipo-habitacion/modificar-tipo-habitacion.component';
 import { AdministrarHabitacionComponent } from './pages/administrar-habitacion/administrar-habitacion.component';
 import { OfertaComponent } from './pages/oferta/oferta.component';
+import { ModificarTemporadaComponent } from './pages/temporada/temporada.component';
 
 export const routes: Routes = [
 
@@ -29,6 +30,7 @@ export const routes: Routes = [
             {path: 'consultar-disponibilidad-de-habitaciones', component:ConsultarDisponibilidadHabitacionesComponent, canActivate:[administradorGuard]},
             {path: 'publicidad', component:PublicidadComponent},
             {path: 'oferta', component:OfertaComponent},
+            {path: 'temporada', component:ModificarTemporadaComponent},
 
             {path: 'modificar-paginas/home', component:InicioClientesComponent, canActivate:[administradorGuard]},
             {path: 'modificar-paginas/sobre-nosotros', component:SobreNosotrosComponent, canActivate:[administradorGuard]},

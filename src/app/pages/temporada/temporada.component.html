@@ -1,0 +1,55 @@
+<div class="pagina animacion">
+    <h2 class="titulo-pagina mth">Modificar Temporada Alta</h2>
+
+    <div class="contenedor-modificar-facilidades">
+        <div class="subcontenedor-modificar-facilidades">
+            <form class="form-container-tipohabitacion" [formGroup]="form" (ngSubmit)="guardar()">
+                <!-- Campo Porcentaje -->
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Porcentaje (%)</mat-label>
+                    <input matInput type="number" formControlName="porcentaje" min="0">
+                    <mat-error *ngIf="form.get('porcentaje')?.hasError('required')">
+                        Porcentaje es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="contenedor-doble-formulario">
+                    <!-- Fecha Inicio -->
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Fecha Inicio</mat-label>
+                        <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerInicio">
+                            <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerInicio></mat-datepicker>
+                        <mat-error *ngIf="form.get('fechaInicio')?.hasError('required')">
+                            Fecha inicio es obligatoria
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Fecha Final -->
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Fecha Final</mat-label>
+                        <input matInput [matDatepicker]="pickerFinal" formControlName="fechaFinal">
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerFinal">
+                            <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerFinal></mat-datepicker>
+                        <mat-error *ngIf="form.get('fechaFinal')?.hasError('required')">
+                            Fecha final es obligatoria
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="contenedor-botones-formulario">
+                    <button mat-flat-button 
+                            class="actualizar-boton" 
+                            type="submit"
+                            [disabled]="form.invalid || form.pristine">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
