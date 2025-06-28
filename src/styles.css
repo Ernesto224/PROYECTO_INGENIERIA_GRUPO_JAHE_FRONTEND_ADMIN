@@ -21,20 +21,19 @@ body {
   /**/
 
   /*===== Colores =====*/
-  --first-color: #0C5DF4;
-  --bg-color: #12192C;
+  --first-color: #0c5df4;
+  --bg-color: #12192c;
   --bg-color-principal-secundario: #1f2637;
   --bg-color-secundario: #daa520;
-  --sub-color: #B6CEFC;
-  --white-color: #FFF;
+  --sub-color: #b6cefc;
+  --white-color: #fff;
   --text-color: rgb(139, 139, 139);
 
   /*===== Fuente y tipografia =====*/
-  --body-font: 'Poppins', sans-serif;
+  --body-font: "Poppins", sans-serif;
   --normal-font-size: 1rem;
-  --small-font-size: .875rem;
+  --small-font-size: 0.875rem;
 }
-
 
 .pagina {
   padding: 20px;
@@ -45,7 +44,6 @@ body {
   color: rgb(139, 139, 139);
   font-family: var(--body-font);
 }
-
 
 /*Animacion*/
 .animacion {
@@ -65,8 +63,6 @@ body {
   }
 }
 
-
-
 .titulo-pagina {
   font-family: "Caveat", cursive;
   font-optical-sizing: auto;
@@ -75,9 +71,6 @@ body {
   font-size: 30px;
   color: rgb(79, 79, 79);
 }
-
-
-
 
 .contenedor-botones-formulario {
   width: 100%;
@@ -94,11 +87,6 @@ body {
 .cancelar-boton {
   background-color: rgb(130, 157, 173) !important;
 }
-
-
-
-
-
 
 /*****  trucate table cells *****************************/
 .mat-mdc-table {

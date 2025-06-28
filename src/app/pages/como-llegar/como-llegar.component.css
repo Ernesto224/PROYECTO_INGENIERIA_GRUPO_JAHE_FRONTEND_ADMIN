@@ -1,10 +1,11 @@
+/* Estilos para el formulario Como Llegar */
 .contenedor-como-llegar {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  padding: 0px 10px;
   width: 100%;
 }
 
@@ -16,7 +17,7 @@
 .formulario-como-llegar {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 20px;
 }
 
 .descripcion-como-llegar {
@@ -24,15 +25,10 @@
 }
 
 .contenedor-botones-como-llegar {
+  width: 100%;
+  max-width: 230px;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  gap: 10px
-}
-
-.actualizar-boton,
-.cancelar-boton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
+  margin-top: 30px;
+  align-self: flex-end;
 }
