@@ -68,9 +68,9 @@
                         <!-- Campo visual para mostrar el nombre del archivo -->
                         <mat-form-field appearance="outline" class="w-full input-imagen">
                             <mat-label class="label-input-imagen">
-                                {{imagenUrl ? 'Cambiar imagen' : 'Seleccionar imagen'}}
+                                {{imagenUrl ? 'Cambiar imagen (opcional)' : ''}}
                             </mat-label>
-                            <input matInput [value]="nombreArchivo || 'Ningún archivo seleccionado'" disabled>
+                            <input matInput [value]="nombreArchivo || 'Cambiar imagen (opcional)'" disabled>
                             <button mat-icon-button matSuffix (click)="fileInput.click()" type="button">
                                 <mat-icon>upload</mat-icon>
                             </button>
@@ -78,12 +78,11 @@
                     </div>
                 </div>
 
-                <div class="form-buttons">
-                    <button mat-raised-button color="primary" type="submit">
+                <div class="contenedor-botones-formulario">
+                    <button mat-flat-button type="submit">
                         {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
                     </button>
-                    <button mat-raised-button color="warn" type="button" (click)="cancelarEdicion()"
-                        *ngIf="modoEdicion">
+                    <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelarEdicion()">
                         Cancelar
                     </button>
                 </div>

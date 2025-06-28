@@ -18,7 +18,6 @@
           <h5>Imagen publicitaria</h5>
 
           <div class="subcontenedor-imagen-habitacion">
-
             <div *ngIf="imagenUrl" class="imagen-selecciona">
               <img [src]="imagenUrl" alt="Imagen seleccionada" style="max-width: 200px;" />
             </div>
@@ -41,7 +40,7 @@
           <button mat-flat-button class="actualizar-boton" type="button" (click)="agregarNuevaPublicidad()">
             {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
           </button>
-          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()" *ngIf="modoEdicion">
+          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">
             Cancelar
           </button>
         </div>
