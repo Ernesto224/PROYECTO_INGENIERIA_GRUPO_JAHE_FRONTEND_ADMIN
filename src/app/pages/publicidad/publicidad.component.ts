@@ -26,7 +26,7 @@ export class PublicidadComponent implements OnInit {
   publicidadService = inject(PublicidadService);
 
   modoEdicion: boolean = false;
-publicidadActual: PublicidadDTO | null = null;
+  publicidadActual: PublicidadDTO | null = null;
 
   //mat-table
   listaPublicidadesDataTable = new MatTableDataSource<PublicidadDTO>([]);
@@ -77,76 +77,76 @@ publicidadActual: PublicidadDTO | null = null;
   }
 
   // Agregar publicidad 
-agregarNuevaPublicidad() {
-  if (this.form.invalid) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Completa los campos requeridos!",
-      showConfirmButton: false,
-      timer: 1500
-    });
-    return;
-  }
+  agregarNuevaPublicidad() {
+    if (this.form.invalid) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Completa los campos requeridos!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
 
-  const publicidadData: PublicidadCrearDTO = {
-    enlacePublicidad: this.form.value.enlacePublicidad,
-    imagen: this.imagenBase64,
-    nombreArchivo: this.nombreArchivo
-  };
+    const publicidadData: PublicidadCrearDTO = {
+      enlacePublicidad: this.form.value.enlacePublicidad,
+      imagen: this.imagenBase64,
+      nombreArchivo: this.nombreArchivo
+    };
 
-  if (this.modoEdicion && this.publicidadActual) {
-    // Modo edición
-    this.publicidadService.modificarPublicidad(publicidadData, this.publicidadActual.idPublicidad).subscribe(
-      response => {
-        Swal.fire({ icon: "success", text: "Publicidad actualizada!", showConfirmButton: false, timer: 1500 });
-        this.resetFormulario();
-        this.obtenerPublicidades();
-      },
-      error => {
-        console.error(error);
-        Swal.fire({ icon: "error", text: "Error al actualizar publicidad", showConfirmButton: false, timer: 1500 });
-      }
-    );
-  } else {
-    // Modo creación
-    this.publicidadService.crearPublicidad(publicidadData).subscribe(
-      response => {
-        Swal.fire({ icon: "success", text: "Publicidad creada!", showConfirmButton: false, timer: 1500 });
-        this.resetFormulario();
-        this.obtenerPublicidades();
-      },
-      error => {
-        console.error(error);
-        Swal.fire({ icon: "error", text: "Error al crear publicidad", showConfirmButton: false, timer: 1500 });
-      }
-    );
+    if (this.modoEdicion && this.publicidadActual) {
+      // Modo edición
+      this.publicidadService.modificarPublicidad(publicidadData, this.publicidadActual.idPublicidad).subscribe(
+        response => {
+          Swal.fire({ icon: "success", text: "Publicidad actualizada!", showConfirmButton: false, timer: 1500 });
+          this.resetFormulario();
+          this.obtenerPublicidades();
+        },
+        error => {
+          console.error(error);
+          Swal.fire({ icon: "error", text: "Error al actualizar publicidad", showConfirmButton: false, timer: 1500 });
+        }
+      );
+    } else {
+      // Modo creación
+      this.publicidadService.crearPublicidad(publicidadData).subscribe(
+        response => {
+          Swal.fire({ icon: "success", text: "Publicidad creada!", showConfirmButton: false, timer: 1500 });
+          this.resetFormulario();
+          this.obtenerPublicidades();
+        },
+        error => {
+          console.error(error);
+          Swal.fire({ icon: "error", text: "Error al crear publicidad", showConfirmButton: false, timer: 1500 });
+        }
+      );
+    }
   }
-}
 
   // Editar publicidad 
-editarPublicidad(publicidad: PublicidadDTO) {
-  this.modoEdicion = true;
-  this.publicidadActual = publicidad;
-  this.imagenUrl = publicidad.imagen.url;
-  this.nombreArchivo = 'Imagen existente';
+  editarPublicidad(publicidad: PublicidadDTO) {
+    this.modoEdicion = true;
+    this.publicidadActual = publicidad;
+    this.imagenUrl = publicidad.imagen.url;
+    this.nombreArchivo = 'Imagen existente';
 
-  this.form.patchValue({
-    enlacePublicidad: publicidad.enlacePublicidad
-  });
-}
+    this.form.patchValue({
+      enlacePublicidad: publicidad.enlacePublicidad
+    });
+  }
 
-resetFormulario() {
-  this.modoEdicion = false;
-  this.publicidadActual = null;
-  this.form.reset({
-    enlacePublicidad: '',
-    imagen: null
-  });
-  this.imagenBase64 = null;
-  this.nombreArchivo = '';
-  this.imagenUrl = '';
-}
+  resetFormulario() {
+    this.modoEdicion = false;
+    this.publicidadActual = null;
+    this.form.reset({
+      enlacePublicidad: '',
+      imagen: null
+    });
+    this.imagenBase64 = null;
+    this.nombreArchivo = '';
+    this.imagenUrl = '';
+  }
 
   // Eliminar publicidad
   eliminarPublicidad(idPublicidad: number) {

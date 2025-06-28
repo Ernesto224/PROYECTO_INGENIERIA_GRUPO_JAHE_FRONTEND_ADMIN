@@ -1,0 +1,15 @@
+.contenedor-botones-formulario {
+  width: 100%;
+  max-width: 230px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.actualizar-boton {
+  background-color: rgb(0, 135, 212) !important;
+}
+
+.cancelar-boton {
+  background-color: rgb(130, 157, 173) !important;
+}
