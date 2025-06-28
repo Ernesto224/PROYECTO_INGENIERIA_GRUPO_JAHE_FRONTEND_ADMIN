@@ -38,11 +38,9 @@
             aria-label="Seleccionar página">
         </mat-paginator>
 
-        <div class="acciones-tabla mt-4 flex justify-end gap-3">
-            <button mat-raised-button color="primary" (click)="refrescarDatos()">
-                <mat-icon>refresh</mat-icon> Refrescar
-            </button>
-            <button mat-raised-button color="accent" (click)="generarPDF()">
+        <div class="contenedor-botones-formulario">
+            <button mat-flat-button class="actualizar-boton" type="button" (click)="refrescarDatos()"><mat-icon>refresh</mat-icon> Refrescar</button>
+            <button mat-flat-button  class="cancelar-boton" (click)="generarPDF()">
                 <mat-icon>picture_as_pdf</mat-icon> Generar PDF
             </button>
         </div>
