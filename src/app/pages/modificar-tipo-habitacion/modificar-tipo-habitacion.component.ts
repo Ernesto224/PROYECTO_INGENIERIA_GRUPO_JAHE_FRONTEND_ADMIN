@@ -130,7 +130,6 @@ export class ModificarTipoHabitacionComponent implements OnInit {
 
   }
 
-
   cancelar(): void {
     Swal.fire({
       text: '¿Deseas descartar los cambios?',
