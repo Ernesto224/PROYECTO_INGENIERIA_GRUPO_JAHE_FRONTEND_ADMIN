@@ -1,19 +1,15 @@
 <div class="pagina animacion">
-  <h2 class="titulo-pagina mth">Modificar Página Cómo llegar</h2>
+  <h2 class="titulo-pagina">Modificar Página Cómo llegar</h2>
 
   <div class="contenedor-como-llegar">
     <div class="subcontenedor-como-llegar">
       <form class="formulario-como-llegar" [formGroup]="formularioComoLlegar">
         <mat-form-field appearance="outline" class="w-full descripcion-como-llegar">
           <mat-label>Descripción</mat-label>
-          <textarea
-            matInput
-            formControlName="descripcion"
-            placeholder="Escribe cómo llegar aquí..."
-          ></textarea>
+          <textarea matInput formControlName="descripcion" placeholder="Escribe cómo llegar aquí..."></textarea>
         </mat-form-field>
 
-        <div class="contenedor-botones-como-llegar">
+        <div class="contenedor-botones-formulario">
           <button mat-flat-button class="actualizar-boton" type="button" (click)="actualizarInformacion()">
             Actualizar
           </button>

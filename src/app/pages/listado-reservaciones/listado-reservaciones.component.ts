@@ -12,6 +12,7 @@ import { ReservacionDTO } from '../../Core/models/ReservacionDTO';
 import { CustomMatPaginatorIntlComponent } from '../../Core/components/custom-mat-paginator-intl/custom-mat-paginator-intl/custom-mat-paginator-intl.component';
 import { RespuestaConsultaReservaDTO } from '../../Core/models/RespuestaConsultaReservaDTO ';
 import { ChangeDetectorRef } from '@angular/core';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Swal from 'sweetalert2';
@@ -33,7 +34,8 @@ import Swal from 'sweetalert2';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ]
 })
 export class ListadoReservacionesComponent implements OnInit {
@@ -46,6 +48,7 @@ export class ListadoReservacionesComponent implements OnInit {
   public maximoPorPagina = 5;
   public totalRegistros = 0;
   public verReservacion = false;
+  public mostrarTabla = true; // Nueva propiedad para controlar la visibilidad de la tabla
 
   public displayedColumns: string[] = [
     'fecha',
@@ -90,6 +93,7 @@ export class ListadoReservacionesComponent implements OnInit {
       next: (reservacion: ReservacionDTO) => {
         this.reservacion = reservacion;
         this.verReservacion = true;
+        this.mostrarTabla = false; // Ocultar tabla al mostrar detalles
         this.detectorCambos.detectChanges();
       },
       error: (err) => {
@@ -149,12 +153,14 @@ export class ListadoReservacionesComponent implements OnInit {
   public eliminarReserva(): void {
     if (!this.reservacion) return;
     this.eliminarReservacion(this.reservacion.idReserva);
-    this.verReservacion = false;
+    this.volver();
   }
+
   refrescarDatos(): void {
     this.paginaActual = 1;
     this.obtenerReservaciones();
   }
+
   public generarPDF(): void {
     if (!this.reservacion) return;
 
@@ -207,5 +213,7 @@ export class ListadoReservacionesComponent implements OnInit {
 
   public volver(): void {
     this.verReservacion = false;
+    this.mostrarTabla = true; // Mostrar tabla al volver
+    this.detectorCambos.detectChanges();
   }
 }

@@ -14,14 +14,14 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modificar-tipo-habitacion',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatButtonModule, MatIcon],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIcon],
   templateUrl: './modificar-tipo-habitacion.component.html',
   styleUrl: './modificar-tipo-habitacion.component.css'
 })
 export class ModificarTipoHabitacionComponent implements OnInit {
 
   tipoDeHabitacionesService = inject(TipoHabitacionesService);
-  listaTipoDeHabitaciones! : TipoDeHabitacionDTO[];
+  listaTipoDeHabitaciones!: TipoDeHabitacionDTO[];
 
   private fb = inject(FormBuilder);
   form: FormGroup;
@@ -43,7 +43,7 @@ export class ModificarTipoHabitacionComponent implements OnInit {
     this.obtenerTiposDeHabitaciones();
   }
 
-  obtenerTiposDeHabitaciones(){
+  obtenerTiposDeHabitaciones() {
     this.tipoDeHabitacionesService.obtenerTipoDeHabitaciones().subscribe(response => {
       this.listaTipoDeHabitaciones = response;
     });
@@ -78,7 +78,7 @@ export class ModificarTipoHabitacionComponent implements OnInit {
 
   actualizar() {
 
-    if(this.form.invalid){
+    if (this.form.invalid) {
 
       Swal.fire({
         icon: "error",
@@ -87,7 +87,7 @@ export class ModificarTipoHabitacionComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-      
+
       return;
     }
 
@@ -110,28 +110,43 @@ export class ModificarTipoHabitacionComponent implements OnInit {
           imagen: this.imagenBase64,
           nombreArchivo: this.nombreArchivo
         };
-    
+
         console.log(TipoDeHabitacionActualizarDTO);
-      
+
         this.tipoDeHabitacionesService.actualizarTipoHabitacion(TipoDeHabitacionActualizarDTO).subscribe(
           response => {
-            Swal.fire({icon: "success", text: "Actualización exitosa!", showConfirmButton: false, timer: 1500});
+            Swal.fire({ icon: "success", text: "Actualización exitosa!", showConfirmButton: false, timer: 1500 });
             this.obtenerTiposDeHabitaciones(); // Recargar la lista después de actualizar
-          }, 
+          },
           error => {
             console.error(error);
-            Swal.fire({icon: "error", text: "Ocurrió un error al actualizar la habitación.", showConfirmButton: false, timer: 1500});
+            Swal.fire({ icon: "error", text: "Ocurrió un error al actualizar la habitación.", showConfirmButton: false, timer: 1500 });
           }
         );
 
       }
     });
 
-    
+
   }
 
+  cancelar(): void {
+    Swal.fire({
+      text: '¿Deseas descartar los cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#F7374F',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.resetearFormulario(); // Vuelve a cargar los datos originales
+      }
+    });
+  }
 
-  cancelar() {
+  private resetearFormulario(): void {
     // Reiniciar el formulario
     this.form.reset({
       idTipoDeHabitacion: null,
@@ -140,12 +155,11 @@ export class ModificarTipoHabitacionComponent implements OnInit {
       tarifaDiaria: 0,
       imagen: null
     });
-    
+
     // Limpiar las variables de imagen
     this.imagenBase64 = null;
     this.nombreArchivo = '';
     this.imagenUrl = '';
   }
-
 
 }

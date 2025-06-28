@@ -55,25 +55,25 @@ export class InicioClientesComponent implements OnInit {
     }
   }
 
-public obtenerDatosHome(): void {
+  public obtenerDatosHome(): void {
     this.homeService.obtenerDatosHome().subscribe({
-        next: (respuesta: any) => {
+      next: (respuesta: any) => {
 
-          console.log('Datos obtenidos:', respuesta);
-            this.form.patchValue({ 
-                idHome: respuesta.idHome,
-                descripcion: respuesta.descripcion 
-            });
-            
-                this.imagenUrl = respuesta.imagen.url;
-                console.log('Imagen URL:', this.imagenUrl);
-            
-        },
-        error: (error: any) => {
-            console.error('Error al obtener datos:', error);
-        }
+        console.log('Datos obtenidos:', respuesta);
+        this.form.patchValue({
+          idHome: respuesta.idHome,
+          descripcion: respuesta.descripcion
+        });
+
+        this.imagenUrl = respuesta.imagen.url;
+        console.log('Imagen URL:', this.imagenUrl);
+
+      },
+      error: (error: any) => {
+        console.error('Error al obtener datos:', error);
+      }
     });
-}
+  }
 
   public actualizar(): void {
     if (this.form.invalid) {
@@ -124,15 +124,22 @@ public obtenerDatosHome(): void {
   }
 
   public cancelar(): void {
-    this.form.reset({
-      idFacilidad: null,
-      descripcion: '',
-      imagen: null
+    Swal.fire({
+      text: '¿Deseas cancelar los cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#F7374F',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.obtenerDatosHome(); // Vuelve a cargar los datos originales
+        this.imagenBase64 = null;
+        this.nombreArchivo = '';
+        // No necesitamos resetear imagenUrl porque obtenerDatosHome() la actualizará
+      }
     });
-
-    this.imagenBase64 = null;
-    this.nombreArchivo = '';
-    this.imagenUrl = '';
   }
 
 }

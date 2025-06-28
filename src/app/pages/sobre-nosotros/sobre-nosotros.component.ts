@@ -42,7 +42,8 @@ export class SobreNosotrosComponent implements OnInit {
 
   constructor() {
     this.formularioSobreNosotros = this.formularioBuilder.group({
-      descripcion: ['', Validators.required],
+      idSobreNosotros: [null],
+      descripcion: ['', [Validators.required]],
       imagen: [null]
     });
   }
@@ -51,21 +52,36 @@ export class SobreNosotrosComponent implements OnInit {
     this.obtenerDatosSobreNosotros();
   }
 
-  obtenerDatosSobreNosotros() {
+  obtenerDatosSobreNosotros(): void {
     this.sobreNosotrosServicio.obtenerDatosSobreNosotros().subscribe({
       next: (respuesta) => {
         this.datosSobreNosotros = respuesta;
-        this.formularioSobreNosotros.patchValue({ descripcion: respuesta.descripcion });
+        this.formularioSobreNosotros.patchValue({
+          idSobreNosotros: respuesta.idSobreNosotros,
+          descripcion: respuesta.descripcion
+        });
       },
       error: (error) => {
         console.error('Error al obtener información:', error);
+        Swal.fire({
+          icon: 'error',
+          text: 'Error al cargar los datos',
+          timer: 1500,
+          showConfirmButton: false
+        });
       }
     });
   }
 
-  actualizarDescripcion() {
+  actualizarDescripcion(): void {
     if (this.formularioSobreNosotros.invalid) {
-      Swal.fire({ icon: 'error', text: 'La descripción es requerida.', timer: 1500, showConfirmButton: false });
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Completa los campos requeridos!",
+        showConfirmButton: false,
+        timer: 1500
+      });
       return;
     }
 
@@ -73,10 +89,12 @@ export class SobreNosotrosComponent implements OnInit {
       text: '¿Deseas actualizar la descripción?',
       icon: 'question',
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#F7374F',
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar'
-    }).then(resultado => {
-      if (resultado.isConfirmed) {
+    }).then((result) => {
+      if (result.isConfirmed) {
         const datosActualizados: SobreNosotrosDTO = {
           ...this.datosSobreNosotros,
           descripcion: this.formularioSobreNosotros.value.descripcion
@@ -85,18 +103,28 @@ export class SobreNosotrosComponent implements OnInit {
         this.sobreNosotrosServicio.enviarNuevaDescripcionSobreNosotros(datosActualizados).subscribe({
           next: (respuesta) => {
             this.datosSobreNosotros = respuesta;
-            Swal.fire({ icon: 'success', text: 'Descripción actualizada.', timer: 1500, showConfirmButton: false });
+            Swal.fire({
+              icon: 'success',
+              text: 'Descripción actualizada correctamente',
+              timer: 1500,
+              showConfirmButton: false
+            });
           },
           error: (error) => {
             console.error(error);
-            Swal.fire({ icon: 'error', text: 'Error al actualizar.', timer: 1500, showConfirmButton: false });
+            Swal.fire({
+              icon: 'error',
+              text: 'Error al actualizar la descripción',
+              timer: 1500,
+              showConfirmButton: false
+            });
           }
         });
       }
     });
   }
 
-  seleccionarImagen(idImagen: number) {
+  seleccionarImagen(idImagen: number): void {
     const imagenSeleccionada = this.datosSobreNosotros.imagenes.find(imagen => imagen.idImagen === idImagen);
     if (imagenSeleccionada) {
       this.idImagenSeleccionada = idImagen;
@@ -104,11 +132,16 @@ export class SobreNosotrosComponent implements OnInit {
     }
   }
 
-  alSeleccionarArchivo(evento: Event) {
+  alSeleccionarArchivo(evento: Event): void {
     const archivo = (evento.target as HTMLInputElement)?.files?.[0];
     if (archivo) {
       if (!archivo.type.startsWith('image/')) {
-        Swal.fire({ icon: 'error', text: 'Solo se permiten imágenes.', timer: 1500, showConfirmButton: false });
+        Swal.fire({
+          icon: 'error',
+          text: 'Solo se permiten imágenes.',
+          timer: 1500,
+          showConfirmButton: false
+        });
         return;
       }
 
@@ -122,21 +155,37 @@ export class SobreNosotrosComponent implements OnInit {
     }
   }
 
-  cancelar() {
-    this.formularioSobreNosotros.reset({
-      descripcion: '',
-      imagen: null
+  cancelar(): void {
+    Swal.fire({
+      text: '¿Deseas descartar los cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#F7374F',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.obtenerDatosSobreNosotros(); // Vuelve a cargar los datos originales
+      }
     });
   }
-  cancelarActualizarImagen() {
+
+  cancelarActualizarImagen(): void {
+    this.idImagenSeleccionada = null;
+    this.urlImagenSeleccionada = '';
     this.imagenSeleccionadaEnBase64 = null;
     this.nombreArchivoImagenSeleccionada = '';
-    this.urlImagenSeleccionada = '';
   }
 
-  actualizarImagen() {
+  actualizarImagen(): void {
     if (this.idImagenSeleccionada === null || !this.imagenSeleccionadaEnBase64) {
-      Swal.fire({ icon: 'error', text: 'Selecciona una imagen válida.', timer: 1500, showConfirmButton: false });
+      Swal.fire({
+        icon: 'error',
+        text: 'Selecciona una imagen válida.',
+        timer: 1500,
+        showConfirmButton: false
+      });
       return;
     }
 
@@ -144,10 +193,12 @@ export class SobreNosotrosComponent implements OnInit {
       text: '¿Deseas actualizar la imagen seleccionada?',
       icon: 'question',
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#F7374F',
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar'
-    }).then(resultado => {
-      if (resultado.isConfirmed) {
+    }).then((result) => {
+      if (result.isConfirmed) {
         const datosImagenActualizada: GaleriaModificarDTO = {
           idSobreNosotros: this.datosSobreNosotros.idSobreNosotros,
           idImagen: this.idImagenSeleccionada,
@@ -158,11 +209,22 @@ export class SobreNosotrosComponent implements OnInit {
         this.sobreNosotrosServicio.actualizarImagenGaleria(datosImagenActualizada).subscribe({
           next: (respuesta) => {
             this.datosSobreNosotros = respuesta;
-            Swal.fire({ icon: 'success', text: 'Imagen actualizada.', timer: 1500, showConfirmButton: false });
+            this.cancelarActualizarImagen();
+            Swal.fire({
+              icon: 'success',
+              text: 'Imagen actualizada correctamente',
+              timer: 1500,
+              showConfirmButton: false
+            });
           },
           error: (error) => {
             console.error(error);
-            Swal.fire({ icon: 'error', text: 'Error al actualizar imagen.', timer: 1500, showConfirmButton: false });
+            Swal.fire({
+              icon: 'error',
+              text: 'Error al actualizar la imagen',
+              timer: 1500,
+              showConfirmButton: false
+            });
           }
         });
       }

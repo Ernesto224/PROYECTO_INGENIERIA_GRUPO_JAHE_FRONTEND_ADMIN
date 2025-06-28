@@ -28,4 +28,14 @@ export class PublicidadService {
     return this.http.post<any>(this.urlBase, publicidad);
   }
 
+  public modificarPublicidad = (publicidad: PublicidadCrearDTO, id: number): Observable<any> => {
+    const url = `${this.urlBase}/${id}`;
+    return this.http.put<any>(url, publicidad);
+  }
+
+  public obtenerPublicidadPorId = (id: number): Observable<PublicidadDTO> => {
+    const url = `${this.urlBase}/${id}`;
+    return this.http.get<PublicidadDTO>(url);
+  }
+
 }

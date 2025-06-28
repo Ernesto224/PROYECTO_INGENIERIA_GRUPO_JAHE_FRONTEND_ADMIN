@@ -1,8 +1,8 @@
 <div class="pagina animacion">
     <h2 class="titulo-pagina mth">Modificar Temporada Alta</h2>
 
-    <div class="contenedor-modificar-facilidades">
-        <div class="subcontenedor-modificar-facilidades">
+  <div class="contenedor-modificar-tipo-habitacion">
+    <div class="subcontenedor-modificar-tipo-habitacion">
             <form class="form-container-tipohabitacion" [formGroup]="form" (ngSubmit)="guardar()">
                 <!-- Campo Porcentaje -->
                 <mat-form-field appearance="outline" class="w-full">
@@ -42,10 +42,9 @@
                 </div>
 
                 <div class="contenedor-botones-formulario">
-                    <button mat-flat-button 
-                            class="actualizar-boton" 
+                    <button mat-flat-button class="actualizar-boton"
                             type="submit"
-                            [disabled]="form.invalid || form.pristine">
+                           >
                         Guardar Cambios
                     </button>
                 </div>

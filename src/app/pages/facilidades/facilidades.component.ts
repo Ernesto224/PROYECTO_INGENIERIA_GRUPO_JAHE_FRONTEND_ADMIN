@@ -118,15 +118,28 @@ export class FacilidadesComponent implements OnInit {
     });
   }
 
-  public cancelar(): void {
-    // Reiniciar el formulario
+  cancelar(): void {
+    Swal.fire({
+      text: '¿Deseas descartar los cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#F7374F',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.resetearFormulario(); // Vuelve a cargar los datos originales
+      }
+    });
+  }
+
+  private resetearFormulario(): void {
     this.form.reset({
       idFacilidad: null,
       descripcion: '',
       imagen: null
     });
-
-    // Limpiar las variables de imagen
     this.imagenBase64 = null;
     this.nombreArchivo = '';
     this.imagenUrl = '';
