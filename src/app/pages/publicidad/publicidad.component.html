@@ -38,9 +38,12 @@
         </div>
 
         <div class="contenedor-botones-formulario">
-          <button mat-flat-button class="actualizar-boton" type="button"
-            (click)="agregarNuevaPublicidad()">Agregar</button>
-          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()">Cancelar</button>
+          <button mat-flat-button class="actualizar-boton" type="button" (click)="agregarNuevaPublicidad()">
+            {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
+          </button>
+          <button mat-flat-button class="cancelar-boton" type="button" (click)="cancelar()" *ngIf="modoEdicion">
+            Cancelar
+          </button>
         </div>
 
       </form>

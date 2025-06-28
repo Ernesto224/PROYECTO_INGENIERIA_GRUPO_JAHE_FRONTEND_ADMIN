@@ -47,7 +47,7 @@ export class OfertaComponent {
       fechaFinal: ['', Validators.required],
       porcentaje: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       tipoDeHabitacion: ['', Validators.required],
-      imagen: ['', this.modoEdicion ? null : Validators.required]
+      // imagen: ['', this.modoEdicion ? null : Validators.required]
     });
   }
 
@@ -151,17 +151,6 @@ export class OfertaComponent {
       });
     }
   }
-
-  // abrirModalModificarOferta(oferta: OfertaDTO) {
-  //   this.ofertaSeleccionada = oferta;
-  //   this.modalModificarOferta = true;
-  // }
-
-
-  // cerrarFormularioModificar() {
-  //   this.modalModificarOferta = false;
-  //   this.obtenerDatosOfertas();
-  // }
 
   editarOferta(oferta: OfertaDTO) {
     this.modoEdicion = true;
